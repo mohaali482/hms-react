@@ -14,4 +14,24 @@ class RegisterPatientForm(forms.ModelForm):
         'type':'name',
         'placeholder':'Last Name'
     }))
+    phone = forms.forms.CharField( max_length=13, required=True, min_length=2 , widget=forms.TextInput(attrs={
+        'type':'number',
+        'placeholder':'Phone number'
+    }))
+    b_date = forms.DateField(required= True, widget=forms.TextInput(attrs={
+        'type':'date',
+        'placeholder':'Birth Date'
+    } ))
+    email = forms.EmailField(required= True,  widget=forms.TextInput(attrs={
+        'type':'Email',
+        'placeholder':'Email'
+    }))
+    sex = forms.CharField(required= True,  widget=forms.TextInput(attrs={
+        'type':'Gender',
+        'placeholder':'Sex'
+    }))
+    blood_type = forms.CharField(required= True ,widget=forms.TextInput(attrs={
+        'type':'Blood Type',
+        'placeholder':'Blood Type'
+    }))
     
