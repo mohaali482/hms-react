@@ -39,7 +39,7 @@ class RegisterPatientForm(forms.ModelForm):
         
 
 class RegisterPatientCondition(forms.ModelForm):
-     symtopms = forms.TextInput(min_length=2, required=True, widget=forms.TextInput(attrs={
+    symtopms = forms.TextInput(min_length=2, required=True, widget=forms.TextInput(attrs={
         'type':'char',
         'placeholder':'Symtopms'
     }))
@@ -47,4 +47,12 @@ class RegisterPatientCondition(forms.ModelForm):
         'type':'char',
         'placeholder':'Conditions'
     }))
-    
+    prescription = forms.TextInput(min_length=2, required=True, widget=forms.TextInput(attrs={
+        'type':'char',
+        'placeholder':'Prescription'
+    }))
+    date =  forms.DateTimeField 
+    class Meta :
+        model = Condition
+        fields = ["symtopms", "condition", "prescription", "date"]
+        
