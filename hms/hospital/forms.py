@@ -2,7 +2,7 @@ from django import forms
 from django.db import models
 from django.db.models import fields
 
-from hms.hospital.models import Patient
+from hms.hospital.models import Condition, Patient
 
 
 GenderChoices = [("Female","Female"), ("Male","Male") ]
@@ -39,7 +39,12 @@ class RegisterPatientForm(forms.ModelForm):
         
 
 class RegisterPatientCondition(forms.ModelForm):
-     symtopms = forms.CharField(min_length=2, required=True, widget=forms.TextInput(attrs={
+     symtopms = forms.TextInput(min_length=2, required=True, widget=forms.TextInput(attrs={
         'type':'char',
         'placeholder':'Symtopms'
     }))
+    Condition = forms.TextInput(min_length=2, required=True, widget=forms.TextInput(attrs={
+        'type':'char',
+        'placeholder':'Conditions'
+    }))
+    
