@@ -12,10 +12,21 @@ class Patient(models.Model):
     phone = models.PhoneNumberField(_("Phone"))
     email = models.EmailField(_("Email"), max_length=254)
     sex = models.CharField(_("Sex"), max_length=10)
-    symtopms = models.TextField(_("Symptopms"))
-    condition = models.TextField(_("Conditions"))
-    prescription = models.TextField(_("Prescription"))
     blood_type = models.CharField(_("Blood Type"), max_length=2)
 
     def __str__(self) -> str:
         return self.email
+
+    
+class Condition(models.Model):
+    symtopms = models.TextField(_("Symptopms"))
+    condition = models.TextField(_("Conditions"))
+    prescription = models.TextField(_("Prescription"))
+    date = models.DateField(_("History Date"), auto_now=False, auto_now_add=False)
+
+
+class PatientHistory(models.Model):
+    patient = models.ForeignKey("Patient", verbose_name=_("Patient"), on_delete=models.CASCADE)
+    conditons = models.ForeignKey("Condition", verbose_name=_("Condition"), on_delete=models.CASCADE)
+
+
