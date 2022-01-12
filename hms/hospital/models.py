@@ -24,9 +24,15 @@ class Condition(models.Model):
     prescription = models.TextField(_("Prescription"))
     date = models.DateField(_("History Date"), auto_now=False, auto_now_add=False)
 
+    def __str__(self) -> str:
+        return self.condition
+
 
 class PatientHistory(models.Model):
     patient = models.ForeignKey("Patient", verbose_name=_("Patient"), on_delete=models.CASCADE)
     conditons = models.ForeignKey("Condition", verbose_name=_("Condition"), on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return (self.patient + " " + self.conditons.date)
 
 
