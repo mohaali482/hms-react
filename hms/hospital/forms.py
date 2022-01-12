@@ -2,7 +2,8 @@ from django import forms
 from django.db import models
 
 
-CHOICES = [("Female","Female"), ("Male","Male") ]
+GenderChoices = [("Female","Female"), ("Male","Male") ]
+BloodTypes = [("A+","A+" ), ("A-", "A-"), ("B-","B-"),("B+", "B+"),("AB+","AB+"), ("AB-","AB-"),("O-","O-"),("O+", "O+")]
 
 class RegisterPatientForm(forms.ModelForm):
     first_name = forms.CharField(max_length=20, min_length=2, required=True, widget=forms.TextInput(attrs={
@@ -26,10 +27,7 @@ class RegisterPatientForm(forms.ModelForm):
         'type':'email',
         'placeholder':'Email'
     }))
-    sex = forms.ChoiceField( choices=[CHOICES], required=True)
-    blood_type = forms.CharField(required= True ,widget=forms.TextInput(attrs={
-        'type':'Blood Type',
-        'placeholder':'Blood Type'
-    }))
+    sex = forms.ChoiceField( choices=[GenderChoices ], required=True)
+    blood_type = forms.ChoiceField( choices=[BloodTypes], required=False)
 class RegisterPatientCondition(forms.ModelForm):
      symtopms = forms.
