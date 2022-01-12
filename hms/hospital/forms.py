@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import fields
 
@@ -56,3 +57,8 @@ class RegisterPatientCondition(forms.ModelForm):
     class Meta :
         model = Condition
         fields = ["symtopms", "condition", "prescription", "date"]
+
+class RegisterEmployeeData(forms.ModelForm):
+    
+    User = forms.ModelChoiceField()
+    b_date = forms.DateField()
