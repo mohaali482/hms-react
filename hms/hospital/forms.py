@@ -1,5 +1,8 @@
 from django import forms
 from django.db import models
+from django.db.models import fields
+
+from hms.hospital.models import Patient
 
 
 GenderChoices = [("Female","Female"), ("Male","Male") ]
@@ -29,5 +32,11 @@ class RegisterPatientForm(forms.ModelForm):
     }))
     sex = forms.ChoiceField( choices=[GenderChoices ], required=True)
     blood_type = forms.ChoiceField( choices=[BloodTypes], required=False)
+
+    class Meta :
+        model = Patient
+        fields = ["first_name" , "middle_name" , "last_name", "phone" , "b_date" , "email" , "sex" , "blood_type"]
+        
+
 class RegisterPatientCondition(forms.ModelForm):
      symtopms = forms.
