@@ -16,4 +16,6 @@ class Patient(models.Model):
     condition = models.TextField(_("Conditions"))
     prescription = models.TextField(_("Prescription"))
     blood_type = models.CharField(_("Blood Type"), max_length=2)
-    
+
+    def __str__(self) -> str:
+        return self.email
