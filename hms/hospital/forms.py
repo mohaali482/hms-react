@@ -68,5 +68,7 @@ class RegisterEmployeeData(forms.ModelForm):
     }))
     sex = forms.ChoiceField( choices=[GenderChoices ], required=True)
     role = forms.forms.CharField( min_length = 2 ,max_length=20, required= True )
-    Schedule = forms.ModelChoiceField()
-    
+    schedule = forms.ModelChoiceField()
+    class Meta :
+        model = EmployeeData
+        fields = ["user", "b_date", "phone_no", "sex", "role", "schedule"]
