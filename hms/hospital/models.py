@@ -51,3 +51,6 @@ class EmployeeData(models.Model):
     sex = models.CharField(_("Sex"), max_length=10)
     role = models.CharField(_("Role"), max_length=20)
     schedule = models.ForeignKey("Schedule", verbose_name=_(""), on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return self.user.email
