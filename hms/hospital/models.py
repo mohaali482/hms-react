@@ -45,7 +45,7 @@ class Schedule(models.Model):
 
 
 class EmployeeData(models.Model):
-    user = models.ForeignKey("User", verbose_name=_("User"), on_delete=models.CASCADE)
+    user = models.ForeignKey(User, verbose_name=_("User"), on_delete=models.CASCADE)
     b_date = models.DateField(_("Birth Date"), auto_now=False, auto_now_add=False)
     phone_no = models.CharField(_("Phone Number"), max_length=15)
     sex = models.CharField(_("Sex"), max_length=10)
