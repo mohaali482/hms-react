@@ -39,4 +39,7 @@ class RegisterPatientForm(forms.ModelForm):
         
 
 class RegisterPatientCondition(forms.ModelForm):
-     symtopms = forms.
+     symtopms = forms.CharField(min_length=2, required=True, widget=forms.TextInput(attrs={
+        'type':'char',
+        'placeholder':'Symtopms'
+    }))
