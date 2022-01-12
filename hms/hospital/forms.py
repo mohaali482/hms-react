@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import fields
 
-from hms.hospital.models import Condition, Patient , EmployeeData
+from hms.hospital.models import Condition, Patient , EmployeeData, Schedule
 
 
 GenderChoices = [("Female","Female"), ("Male","Male") ]
@@ -62,3 +62,11 @@ class RegisterEmployeeData(forms.ModelForm):
     
     User = forms.ModelChoiceField()
     b_date = forms.DateField()
+    phone_no = forms.forms.CharField( max_length=13, required=True, min_length=2 , widget=forms.TextInput(attrs={
+        'type':'number',
+        'placeholder':'Phone Number'
+    }))
+    sex = forms.ChoiceField( choices=[GenderChoices ], required=True)
+    role = forms.forms.CharField( min_length = 2 ,max_length=20, required= True )
+    Schedule = forms.ModelChoiceField()
+    
