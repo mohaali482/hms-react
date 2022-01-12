@@ -37,6 +37,13 @@ class PatientHistory(models.Model):
         return (self.patient + " " + self.conditons.date)
 
 
+class Schedule(models.Model):
+    date = models.DateTimeField(_("Entry date and time"), auto_now=False, auto_now_add=False)
+
+    def __str__(self) -> str:
+        return str(self.date)
+
+
 class EmployeeData(models.Model):
     user = models.ForeignKey("User", verbose_name=_("User"), on_delete=models.CASCADE)
     b_date = models.DateField(_("Birth Date"), auto_now=False, auto_now_add=False)
