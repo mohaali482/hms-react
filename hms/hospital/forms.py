@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import fields
 
-from hms.hospital.models import Condition, Patient , EmployeeData, Schedule
+from hms.hospital.models import Condition, Patient , EmployeeData 
 
 
 GenderChoices = [("Female","Female"), ("Male","Male") ]
@@ -53,7 +53,7 @@ class RegisterPatientCondition(forms.ModelForm):
         'type':'char',
         'placeholder':'Prescription'
     }))
-    date =  forms.DateTimeField 
+    date =  forms.DateTimeField(auto_now = True, auto_now_add = True )
     class Meta :
         model = Condition
         fields = ["symtopms", "condition", "prescription", "date"]
