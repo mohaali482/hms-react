@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -36,3 +37,10 @@ class PatientHistory(models.Model):
         return (self.patient + " " + self.conditons.date)
 
 
+class EmployeeData(models.Model):
+    user = models.ForeignKey("User", verbose_name=_("User"), on_delete=models.CASCADE)
+    b_date = models.DateField(_("Birth Date"), auto_now=False, auto_now_add=False)
+    phone_no = models.CharField(_("Phone Number"), max_length=15)
+    sex = models.CharField(_("Sex"), max_length=10)
+    role = models.CharField(_("Role"), max_length=20)
+    schedule = models.ForeignKey("Schedule", verbose_name=_(""), on_delete=models.CASCADE)
