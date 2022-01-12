@@ -4,6 +4,6 @@ from .models import *
 # Register your models here.
 
 
-admin.register(Condition)
-admin.register(Patient)
-admin.register(PatientHistory)
+admin.site.register(Condition)
+admin.site.register(Patient)
+admin.site.register(PatientHistory)
