@@ -2,7 +2,7 @@ from django import forms
 from django.db import models
 from django.db.models import fields
 
-from hms.hospital.models import Condition, Patient
+from hms.hospital.models import Condition, Patient , EmployeeData
 
 
 GenderChoices = [("Female","Female"), ("Male","Male") ]
