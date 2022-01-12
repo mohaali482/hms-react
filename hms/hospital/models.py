@@ -34,7 +34,7 @@ class PatientHistory(models.Model):
     conditons = models.ForeignKey("Condition", verbose_name=_("Condition"), on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return (self.patient + " " + self.conditons.date)
+        return str(self.patient + " " + self.conditons.date)
 
 
 class Schedule(models.Model):
@@ -50,7 +50,7 @@ class EmployeeData(models.Model):
     phone_no = models.CharField(_("Phone Number"), max_length=15)
     sex = models.CharField(_("Sex"), max_length=10)
     role = models.CharField(_("Role"), max_length=20)
-    schedule = models.ForeignKey("Schedule", verbose_name=_(""), on_delete=models.CASCADE)
+    schedule = models.ForeignKey("Schedule", verbose_name=_("Schedule"), on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return self.user.email
+        return str(self.user.email)
