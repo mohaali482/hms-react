@@ -9,7 +9,7 @@ class Patient(models.Model):
     middle_name = models.CharField(_("Middle Name"), max_length=50)
     last_name = models.CharField(_("Last Name"), max_length=50)
     b_date = models.DateField(_("Birth Date"), auto_now=False, auto_now_add=False)
-    phone = models.PhoneNumberField(_("Phone"))
+    phone = models.CharField(_("Phone number"), max_length=15)
     email = models.EmailField(_("Email"), max_length=254)
     sex = models.CharField(_("Sex"), max_length=10)
     blood_type = models.CharField(_("Blood Type"), max_length=2)
