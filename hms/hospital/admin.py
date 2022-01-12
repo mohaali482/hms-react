@@ -7,3 +7,4 @@ from .models import *
 admin.site.register(Condition)
 admin.site.register(Patient)
 admin.site.register(PatientHistory)
+admin.site.register(Schedule)
