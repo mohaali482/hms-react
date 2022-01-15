@@ -33,7 +33,7 @@ class RegisterPatientForm(forms.ModelForm):
 
 class RegisterPatientCondition(forms.ModelForm):
     def __init__(self, *args, **kwargs) -> None:
-        super(RegisterPatientForm, self).__init__(*args, **kwargs)
+        super(RegisterPatientCondition, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
 
