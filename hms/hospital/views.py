@@ -19,5 +19,5 @@ def index(request):
     context['form'] = form
     context['text'] = 'Add a Patient'
     context['general'] = 'Patient Information'
-    context['reception  '] = True
+    context['reception'] = True
     return render(request, 'hospital/register.html', context)
