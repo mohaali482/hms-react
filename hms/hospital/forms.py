@@ -31,24 +31,15 @@ class RegisterPatientForm(forms.ModelForm):
         
 
 
-# class RegisterPatientCondition(forms.ModelForm):
+class RegisterPatientCondition(forms.ModelForm):
+    def __init__(self, *args, **kwargs) -> None:
+        super(RegisterPatientForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
 
-#     symtopms = forms.CharField(min_length=2, required=True, widget=forms.TextInput(attrs={
-#         'type':'char',
-#         'placeholder':'Symtopms'
-#     }))
-#     Condition = forms.CharField(min_length=2, required=True, widget=forms.TextInput(attrs={
-#         'type':'char',
-#         'placeholder':'Conditions'
-#     }))
-#     prescription = forms.CharField(min_length=2, required=True, widget=forms.TextInput(attrs={
-#         'type':'char',
-#         'placeholder':'Prescription'
-#     }))
-#     date =  forms.DateTimeField(auto_now = True, auto_now_add = True )
-#     class Meta :
-#         model = Condition
-#         fields = ["symtopms", "condition", "prescription", "date"]
+    class Meta :
+        model = Condition
+        fields = ["symtopms", "condition", "prescription", "date"]
 
 # class RegisterEmployeeData(forms.ModelForm):
     
