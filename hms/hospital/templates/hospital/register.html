@@ -1,0 +1,18 @@
+{% extends 'hospital/base.html' %}
+{% block forms %}
+<div class="content">
+    <div class="container-fluid">
+          <div class="card card-primary">
+              <div class="card-header">
+                  <h3 class="card-title">
+                      {{general}}
+                  </h3>
+              </div>
+              <div class="card-body">
+                  <div class="form-group">
+                      {{form.as_table}}
+                  </div>
+              </div>
+          </div>
+    </div>
+{% endblock forms %}
