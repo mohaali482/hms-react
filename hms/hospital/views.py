@@ -21,3 +21,10 @@ def index(request):
     context['general'] = 'Patient Information'
     context['reception'] = True
     return render(request, 'hospital/register.html', context)
+
+def search_patient(request):
+    context = {}
+    context['text'] = 'Add a Patient'
+    context['general'] = 'Patient Information'
+    context['reception'] = True
+    return render(request,'hospital/search.html', context)
