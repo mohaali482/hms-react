@@ -31,6 +31,7 @@ def search_patient(request):
     context['text'] = 'Add a Patient'
     context['general'] = 'Patient Information'
     context['reception'] = True
+<<<<<<< HEAD
     return render(request,'hospital/search.html', context)
 
 
@@ -63,3 +64,6 @@ class Regist(RoleReceptionMixin, CreateView):
         return super().get_context_data(**kwargs)
 
     
+=======
+    return render(request,'hospital/registered-patient.html', context)
+>>>>>>> 1fe5aea3dfa27d327ede13fa4e697d2d2e7f10ec

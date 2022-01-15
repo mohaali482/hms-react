@@ -96,7 +96,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="#" class="nav-link active">
+                    <a href="http://localhost:8000/hospital/" class="nav-link active">
                     <i class="fas fa-user-plus"`` style= 'padding-right:5px;padding-left:5px;'></i>
                       <p>New Pateint</p>
                     </a>
@@ -302,7 +302,32 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <!-- AdminLTE App -->
     <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
+<<<<<<< HEAD
+
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+    <script>
+      $(function () {
+        $("#example1").DataTable({
+          "responsive": true,
+          "autoWidth": false,
+        });
+        $('#example2').DataTable({
+          "paging": true,
+          "lengthChange": false,
+          "searching": false,
+          "ordering": true,
+          "info": true,
+          "autoWidth": false,
+          "responsive": true,
+        });
+    });
+    </script>
+=======
     {% block imports %}
     {% endblock imports %}
+>>>>>>> ec3c5dcc547039fb871cbead39ee3940de8c8a2b
   </body>
 </html>

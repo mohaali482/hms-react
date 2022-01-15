@@ -1,6 +1,3 @@
-from random import choice
-from tkinter.tix import Select
-from click import Choice
 from django import forms
 from django.contrib.auth.models import User
 from django.db import models
