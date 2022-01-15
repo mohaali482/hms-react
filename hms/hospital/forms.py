@@ -22,8 +22,8 @@ class RegisterPatientForm(forms.ModelForm):
     class Meta :
         model = Patient
         fields = ("first_name" , "middle_name" , "last_name", "phone" , "b_date" , "email" , "sex" , "blood_type",)
-        sex = forms.ChoiceField(label = "Sex", choices=[GenderChoices ], required=True, widget=forms.Select(choices=(GenderChoices)))
-        blood_type = forms.ChoiceField( label = "Blood Type",choices=[BloodTypes], required=False)
+        # sex = forms.ChoiceField(label = "Sex", choices=[GenderChoices ], required=True, widget=forms.Select(choices=(GenderChoices)))
+        # blood_type = forms.ChoiceField( label = "Blood Type",choices=[BloodTypes], required=False)
 
         widgets = {
             'sex': forms.Select(choices=(GenderChoices),attrs={'class':'form-control custom-select'}),
