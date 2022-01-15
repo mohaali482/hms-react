@@ -140,3 +140,46 @@ def patientHistory(request, id):
     }
     context['patient'] = patient
     return render(request, 'hospital/patient-history.html', context)
+
+
+
+class RoleReceptionMixin:
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.employee.get(user=request.user).role == "Reception":
+            return super().dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+
+class RoleDoctorMixin:
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.employee.get(user=request.user).role == "Doctor":
+            return super().dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+
+class Register(RoleReceptionMixin, CreateView):
+    form_class = RegisterPatientForm
+    success_url = reverse_lazy('search')
+    context_object_name = 'form'
+    template_name = 'hospital/register.html'
+
+    def get_context_data(self, **kwargs):
+        kwargs['text'] = 'Add a Patient'
+        kwargs['general'] = 'Patient Information'
+        kwargs['Reception'] = True
+        return super().get_context_data(**kwargs)
+
+
+class Condition(RoleDoctorMixin, CreateView):
+    form_class = RegisterPatientCondition
+    success_url = reverse_lazy('search')
+    context_object_name = 'form'
+    template_name = 'hospital/registercondition.html'
+
+    def get_context_data(self, **kwargs):
+        kwargs['text'] = 'Add a Patient History'
+        kwargs['general'] = 'Patient History'
+        kwargs['Doctor'] = True
+        return super().get_context_data(**kwargs)
