@@ -6,4 +6,4 @@ from django.http import HttpResponse
 def home(request):
     return render(request, 'hospital/dashboard.html')
 def index(request):
-    return render(request, 'hospital/index.html')
+    return render(request, 'hospital/base.html')
