@@ -8,7 +8,7 @@
                       {{general}}
                   </h3>
               </div>
-              <form method="post">
+              <form method="post" action="{% url 'home' %}">
                 {% csrf_token %}
                 <div class="card-body" style = 'display:block;'>
                     {% for field in form %}

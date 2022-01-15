@@ -1,5 +1,5 @@
-from django.contrib.auth import authenticate, login, views
-from django.shortcuts import render
+from django.contrib.auth import logout as logout_
+from django.shortcuts import redirect, render
 # Create your views here.
 
 
