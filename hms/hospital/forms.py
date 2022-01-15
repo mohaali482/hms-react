@@ -24,10 +24,9 @@ class RegisterPatientForm(forms.ModelForm):
 
         widgets = {
             'sex': forms.Select(choices=(GenderChoices),attrs={'class':'form-control custom-select'}),
-            'blood_type': forms.Select(choices = (BloodTypes),attrs={'class':'form-control custom-select'})
+            'blood_type': forms.Select(choices = (BloodTypes),attrs={'class':'form-control custom-select'}),
+            'b_date':forms.TextInput(attrs={'type':"date", 'class':"form-control"})
         }
-
-        
         
 
 
@@ -39,19 +38,4 @@ class RegisterPatientCondition(forms.ModelForm):
 
     class Meta :
         model = Condition
-        fields = ["symtopms", "condition", "prescription", "date"]
-
-# class RegisterEmployeeData(forms.ModelForm):
-    
-#     User = forms.ModelChoiceField()
-#     b_date = forms.DateField()
-#     phone_no = forms.forms.CharField( max_length=13, required=True, min_length=2 , widget=forms.TextInput(attrs={
-#         'type':'number',
-#         'placeholder':'Phone Number'
-#     }))
-#     sex = forms.ChoiceField( choices=[GenderChoices ], required=True)
-#     role = forms.forms.CharField( min_length = 2 ,max_length=20, required= True )
-#     schedule = forms.ModelChoiceField()
-#     class Meta :
-#         model = EmployeeData
-#         fields = ["user", "b_date", "phone_no", "sex", "role", "schedule"]
+        fields = ["symtopms", "condition", "prescription"]
