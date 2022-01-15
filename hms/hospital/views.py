@@ -20,4 +20,15 @@ def index(request):
     context['text'] = 'Add a Patient'
     context['general'] = 'Patient Information'
     context['reception'] = True
+    context['general'] = 'Patient Information'
     return render(request, 'hospital/register.html', context)
+def patients(request):
+    context = {}
+    context['reception'] = True
+    # database access to all the patients
+    # patients = access from database through model
+
+    #add the retrieved patient to a patients key in the context dictionary
+    # context['patients'] = patients
+    
+    return render(request, 'hospital/registered-patient.html', context)
