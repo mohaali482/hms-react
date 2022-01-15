@@ -27,4 +27,56 @@ def search_patient(request):
     context['text'] = 'Add a Patient'
     context['general'] = 'Patient Information'
     context['reception'] = True
+    patients = [
+        {
+            "id": "0023",
+            "first_name": "first",
+            "middle_name": "middle",
+            "last_name": "last",
+            "b_date": "12/03/1999",
+            "phone": "+251 964352301",
+            "email": "sample@gmail.com",
+            "sex": "M",
+            "blood_type": "A+"
+        },
+        {
+            "id": "0013",
+            "first_name": "first",
+            "middle_name": "middle",
+            "last_name": "last",
+            "b_date": "12/03/1999",
+            "phone": "+251 964352301",
+            "email": "sample@gmail.com",
+            "sex": "M",
+            "blood_type": "A+"
+        },
+        {
+            "id": "0003",
+            "first_name": "first",
+            "middle_name": "middle",
+            "last_name": "last",
+            "b_date": "12/03/1999",
+            "phone": "+251 964352301",
+            "email": "sample@gmail.com",
+            "sex": "M",
+            "blood_type": "A+"
+        }
+    ]
+    context['patients'] = patients
     return render(request,'hospital/registered-patient.html', context)
+def patientInfo(request, id):
+    context = {}
+    context['reception'] = True
+    patient = {
+        "id": id,
+        "first_name": "first",
+        "middle_name": "middle",
+        "last_name": "last",
+        "b_date": "12/03/1999",
+        "phone": "+251 964352301",
+        "email": "sample@gmail.com",
+        "sex": "M",
+        "blood_type": "A+"
+    }
+    context['patient'] = patient
+    return render(request, 'hospital/patient-info.html', context)
