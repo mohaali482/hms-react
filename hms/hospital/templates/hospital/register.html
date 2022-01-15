@@ -8,13 +8,21 @@
                       {{general}}
                   </h3>
               </div>
-              <form role="form">
-                <div class="card-body">
-                    <div class="form-group">
-                        {{form.as_table}}
-                    </div>
-                  </div>
-              </form>
+              <form method="post">
+                {% csrf_token %}
+                <div class="card-body" style = 'display:block;'>
+                    {% for field in form %}
+                        <div class="form-group">
+                            {{field.label_tag}}
+                            {{field}}
+                            <span class="error invalid-feedback">
+                                {{field.errors}}
+                            </span>
+                        </div>
+                    {% endfor %}
+                    <input class = "btn btn-primary" type='submit' value="Submit"/>
+                </div>
+            </form>
           </div>
     </div>
 {% endblock forms %}

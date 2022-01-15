@@ -6,38 +6,28 @@ from django.db.models import fields
 from .models import *
 
 
-GenderChoices = [("Female","Female"), ("Male","Male") ]
-BloodTypes = [("A+","A+" ), ("A-", "A-"), ("B-","B-"),("B+", "B+"),("AB+","AB+"), ("AB-","AB-"),("O-","O-"),("O+", "O+")]
+GenderChoices = [("",""),("Female","Female"), ("Male","Male") ]
+BloodTypes = [("",""),("A+","A+" ), ("A-", "A-"), ("B-","B-"),("B+", "B+"),("AB+","AB+"), ("AB-","AB-"),("O-","O-"),("O+", "O+")]
 
 class RegisterPatientForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs) -> None:
+        super(RegisterPatientForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+
 
     class Meta :
         model = Patient
         fields = ("first_name" , "middle_name" , "last_name", "phone" , "b_date" , "email" , "sex" , "blood_type",)
-
-        first_name = forms.CharField(label = "First Name",max_length=20, min_length=2, required=True, widget=forms.TextInput(attrs={
-        'type':'name',
-        'placeholder':'First Name'
-        }))
-        middle_name = forms.CharField(label = "Middle Name",max_length=20, min_length=2, required=True, widget=forms.TextInput(attrs={
-            'type':'name',
-            'placeholder':'Middle Name'
-        }))
-        last_name = forms.CharField(label = "Last Name",max_length=20, min_length=2, required=True, widget=forms.TextInput(attrs={
-            'type':'name',
-            'placeholder':'Last Name'
-        }))
-        phone = forms.CharField(label = "Phone Number", max_length=13, required=True, min_length=2 , widget=forms.TextInput(attrs={
-            'type':'number',
-            'placeholder':'Phone number'
-        }))
-        b_date = forms.DateField(label = "Birth Date",required= True)
-        email = forms.EmailField(label = "Email",required= False,  widget=forms.TextInput(attrs={
-            'type':'email',
-            'placeholder':'Email'
-        }))
-        sex = forms.ChoiceField(label = "Sex", choices=[GenderChoices ], required=True)
+        sex = forms.ChoiceField(label = "Sex", choices=[GenderChoices ], required=True, widget=forms.Select(choices=(GenderChoices)))
         blood_type = forms.ChoiceField( label = "Blood Type",choices=[BloodTypes], required=False)
+
+        widgets = {
+            'sex': forms.Select(choices=(GenderChoices),attrs={'class':'form-control custom-select'}),
+            'blood_type': forms.Select(choices = (BloodTypes),attrs={'class':'form-control custom-select'})
+        }
+
+        
         
 
 
