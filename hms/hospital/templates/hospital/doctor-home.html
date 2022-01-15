@@ -23,7 +23,7 @@
         <tbody>
         {% for patient in patients %}
           <tr>
-            <td><a href={% url 'patientInfo' id=patient.id %}>{{ patient.id }}</a></td>
+            <td><a href={% url 'patientHistory' id=patient.id %}>{{ patient.id }}</a></td>
             <td>{{ patient.first_name }}</td>
             <td>{{ patient.middle_name }}</td>
             <td>{{ patient.last_name }}</td>
