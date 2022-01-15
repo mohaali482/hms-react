@@ -67,6 +67,7 @@ def search_patient(request):
 def patientInfo(request, id):
     context = {}
     context['reception'] = True
+    context['title'] = 'Patient Info'
     patient = {
         "id": id,
         "first_name": "first",
