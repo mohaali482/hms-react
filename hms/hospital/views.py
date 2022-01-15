@@ -5,6 +5,9 @@ from .forms import *
 # Create your views here.
 
 
+def login(request):
+    return render(request,'hospital/login.html')
+
 def home(request):
     return render(request, 'hospital/dashboard.html')
 def index(request):
