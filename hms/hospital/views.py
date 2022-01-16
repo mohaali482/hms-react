@@ -1,5 +1,6 @@
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
 from django.utils import timezone
 from django import forms
 from django.views.generic import CreateView, UpdateView
@@ -10,6 +11,16 @@ from django.template import context
 from .forms import *
 from django.core.exceptions import PermissionDenied
 # Create your views here.
+
+@login_required
+def home_hospital(request):
+    try:
+        if request.user.employee.get(user=request.user).role == "Reception":
+            return redirect('register')
+        elif request.user.employee.get(user=request.user).role == "Doctor":
+            raise redirect('doctor')
+    except:
+        return HttpResponseForbidden()
 
 
 @login_required
