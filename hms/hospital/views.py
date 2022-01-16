@@ -188,3 +188,9 @@ def register(response):
         form = RegisterForm()
 
     return render(response, "./hospital/register.html",{"form": form}) 
+
+
+class UpdateUserProfile(UpdateView):
+    model = User
+    form_class = UpdateProfileForm
+    template_name = "hospital/updateprofile.html"
