@@ -160,6 +160,7 @@ class PatientUpdateView(UpdateView):
         kwargs['reception'] = True
         return super().get_context_data(**kwargs)
 
+@login_required
 def register(response):
     if response.method == "POST":
         form = RegisterForm(response.POST) 
