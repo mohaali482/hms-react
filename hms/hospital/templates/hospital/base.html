@@ -9,7 +9,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
 
-    <title>Reception</title>
+    <title>{% if Doctor %}
+      Doctor
+      {% else %}
+      Reception
+      {% endif %}</title>
     {% load static %}
 
     <!-- Font Awesome Icons -->
@@ -50,13 +54,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Brand Logo -->
         <a href="index3.html" class="brand-link">
           <img
-            src="{% static 'dist/img/AdminLTELogo.png' %}"
+            src="{% static 'hospital_logo.jpg' %}"
             alt="AdminLTE
           Logo"
             class="brand-image img-circle elevation-3"
             style="opacity: 0.8"
           />
-          <span class="brand-text font-weight-light">Reception</span>
+          <span class="brand-text font-weight-light">{% if Doctor %}
+            Doctor
+            {% else %}
+            Reception
+            {% endif %}
+          </span>
         </a>
 
         <!-- Sidebar -->
@@ -64,14 +73,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!-- Sidebar user panel (optional) -->
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-              <img
-                src="  {% static 'dist/img/user2-160x160.jpg' %} "
-                class="img-circle elevation-2"
-                alt="User Image"
-              />
+              <i class="far fa-user"></i>
             </div>
             <div class="info">
-              <a href="#" class="d-block">Alexander Pierce</a>
+              <a href="#" class="d-block">{{  requests.user.get_full_name   }}</a>
             </div>
           </div>
 
