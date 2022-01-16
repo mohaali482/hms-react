@@ -1,3 +1,5 @@
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django import forms
 from django.views.generic import CreateView, UpdateView
@@ -142,6 +144,8 @@ class CreateCondition(CreateView):
         kwargs['Doctor'] = True
         return super().get_context_data(**kwargs)
 
+
+@method_decorator(login_required, name = 'dispatch')
 class PatientUpdateView(UpdateView):
     model = Patient
     form_class = EditPatient
