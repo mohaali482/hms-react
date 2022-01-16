@@ -66,15 +66,10 @@ class EditPatient(forms.ModelForm):
 
 #     class Meta :
 #         model = EmployeeData
-#         fields = ["Fname", "condition", "prescription"]
+#         fields = ["user", "b_date", "phone_no", sex , "role" , "schedule" ]
 
 class RegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ["username", "email", "password1", "password2"]
 
-
-<<<<<<< HEAD
->>>>>>> 6cfe1e772fb64e16280da08a42ca08234a2a4cd7
-=======
->>>>>>> 26aeccef812f5e7c355bb2eef09ff0e408e0f56d
