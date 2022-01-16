@@ -101,7 +101,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'home-hospital'
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
