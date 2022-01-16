@@ -3,9 +3,14 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='home'),
+    path('register/', views.Register.as_view(), name='home'),
     path('search',views.search_patient, name='search'),
     path('patient/<str:id>', views.patientInfo, name='patientInfo'),
-    path('patient-history/<str:id>', views.patientHistory, name='patientHistory'),
-    path('doctor', views.doctorHome, name="doctorHome")
+    path('queue/<str:id>', views.add_queue, name='add_queue'),
+    path('edit', views.edit, name='edit'),
+    path('edit/<pk>', views.PatientUpdateView.as_view(), name='edit-patient'),
+    path('patient-history/<str:id>', views.CreateCondition.as_view(), name='patientHistory'),
+    path('old-history/<str:id>', views.old_history, name='old_history'),
+    path('condition-info/<str:id>', views.condition_info, name='condition_info'),
+    path('doctor/', views.doctorHome, name="doctorHome")
 ]

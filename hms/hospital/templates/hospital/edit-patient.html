@@ -1,0 +1,28 @@
+{% extends 'hospital/base.html' %}
+{% block forms %}
+<div class="content">
+    <div class="container-fluid">
+          <div class="card card-primary">
+              <div class="card-header">
+                  <h3 class="card-title">
+                      {{general}}
+                  </h3>
+              </div>
+              <form method="post" action="{% url 'home' %}">
+                {% csrf_token %}
+                <div class="card-body" style = 'display:block;'>
+                    {% for field in form %}
+                        <div class="form-group">
+                            {{field.label_tag}}
+                            {{field}}
+                            <span class="error invalid-feedback">
+                                {{field.errors}}
+                            </span>
+                        </div>
+                    {% endfor %}
+                    <input class = "btn btn-primary" type='submit' value="Submit"/>
+                </div>
+            </form>
+          </div>
+    </div>
+{% endblock forms %}
