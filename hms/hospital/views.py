@@ -1,5 +1,3 @@
-from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django import forms
 from django.views.generic import CreateView, UpdateView
@@ -8,6 +6,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import context
 from .forms import *
+from django.core.exceptions import PermissionDenied
 # Create your views here.
 
 
@@ -158,3 +157,14 @@ class PatientUpdateView(UpdateView):
         kwargs['menuactivech'] = 'editpatient'
         kwargs['reception'] = True
         return super().get_context_data(**kwargs)
+
+def register(response):
+    if response.method == "POST":
+        form = RegisterForm(response.POST) 
+        if form.is_valid():
+            form.save()
+        return redirect("/home")
+    else:   
+        form = RegisterForm()
+
+    return render(response, "./hospital/register.html",{"form": form}) 

@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import fields
-
+from django.contrib.auth.forms import UserCreationForm
 from .models import *
 
 
@@ -55,4 +55,26 @@ class EditPatient(forms.ModelForm):
         'last_name',
         'email',
         'phone',
+<<<<<<< HEAD
         ]
+=======
+        ]
+
+
+# class RegisterEmployeeData(forms.ModelForm):
+#     def __init__(self, *args, **kwargs) -> None:
+#         super(RegisterEmployeeData, self).__init__(*args, **kwargs)
+#         for field_name, field in self.fields.items():
+#             field.widget.attrs['class'] = 'form-control'
+
+#     class Meta :
+#         model = EmployeeData
+#         fields = ["Fname", "condition", "prescription"]
+
+class RegisterForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ["username", "email", "password1", "password2"]
+
+
+>>>>>>> 6cfe1e772fb64e16280da08a42ca08234a2a4cd7
