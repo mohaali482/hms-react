@@ -12,19 +12,14 @@ from django.core.exceptions import PermissionDenied
 # Create your views here.
 
 
-def login(request):
-    return render(request,'hospital/login.html')
-
-def home(request):
-    return render(request, 'hospital/dashboard.html')
-
+@login_required
 def add_queue(request,id):
     patient = Patient.objects.get(id = id)
     new_queue = Queue(patient=patient)
     new_queue.save()
 
     return redirect('search')
-
+@login_required
 def search_patient(request):
     context = {}
     context['text'] = 'Add a Patient'
@@ -36,6 +31,7 @@ def search_patient(request):
     context['patients'] = patients
     
     return render(request,'hospital/registered-patient.html', context)
+@login_required
 def patientInfo(request, id):
     context = {}
     context['reception'] = True
@@ -45,7 +41,7 @@ def patientInfo(request, id):
     context['menuactivech'] = 'registeredpatient'
     context['patient'] = patient
     return render(request, 'hospital/patient-info.html', context)
-
+@login_required
 def edit(request):
     context = {}
     context['text'] = 'Edit Patient Info'
@@ -57,7 +53,7 @@ def edit(request):
     context['patients'] = patients
     context['editing'] = True
     return render(request,'hospital/registered-patient.html', context)
-
+@login_required
 def doctorHome(request):
     context = {}
     patients = []
@@ -69,6 +65,7 @@ def doctorHome(request):
     context['menuactivech'] = 'search'
     context['general'] = 'Waiting patients'
     return render(request, 'hospital/doctor-home.html', context)
+@login_required
 def patientHistory(request, id):
     context = {}
     context['reception'] = True
@@ -76,7 +73,7 @@ def patientHistory(request, id):
     patient = Patient.objects.get(id = id)
     context['patient'] = patient
     return render(request, 'hospital/patient-history.html', context)
-
+@login_required
 def old_history(request, id):
     patient = Patient.objects.get(id = id)
     history = PatientHistory.objects.filter(patient=patient)
@@ -85,6 +82,7 @@ def old_history(request, id):
         conditions.append(date.conditions)
     return render(request,'hospital/view-history.html',{'patient':patient,'condition':conditions})
 
+@login_required
 def condition_info(request, id):
     condition = Condition.objects.get(id = id)
 
@@ -131,7 +129,7 @@ class Register(RoleReceptionMixin, CreateView):
         return super().get_context_data(**kwargs)
 
 @method_decorator(login_required, name = 'dispatch')
-class CreateCondition(CreateView):
+class CreateCondition(RoleDoctorMixin,CreateView):
     model = Condition
     form_class = RegisterPatientCondition
     success_url = reverse_lazy('doctorHome')
@@ -154,7 +152,7 @@ class CreateCondition(CreateView):
 
 
 @method_decorator(login_required, name = 'dispatch')
-class PatientUpdateView(UpdateView):
+class PatientUpdateView(RoleReceptionMixin, UpdateView):
     model = Patient
     form_class = EditPatient
     template_name = "hospital/edit-patient.html"
