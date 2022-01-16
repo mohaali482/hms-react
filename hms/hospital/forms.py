@@ -55,12 +55,6 @@ class EditPatient(forms.ModelForm):
         'last_name',
         'email',
         'phone',
-<<<<<<< HEAD
-<<<<<<< HEAD
-        ]
-=======
-=======
->>>>>>> 26aeccef812f5e7c355bb2eef09ff0e408e0f56d
         ]
 
 
