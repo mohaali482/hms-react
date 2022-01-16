@@ -165,4 +165,4 @@ def register(response):
     else:   
         form = RegisterForm()
 
-    return render(response, "./hospital/register.html",{"form": form})
+    return render(response, "./hospital/register.html",{"form": form}) 
