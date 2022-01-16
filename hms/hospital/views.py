@@ -95,18 +95,26 @@ def condition_info(request, id):
 class RoleReceptionMixin:
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.employee.get(user=request.user).role == "Reception":
-            return super().dispatch(request, *args, **kwargs)
-        else:
+        try:
+            if request.user.employee.get(user=request.user).role == "Reception":
+                return super().dispatch(request, *args, **kwargs)
+            else:
+                raise PermissionDenied
+        except:
             raise PermissionDenied
 @method_decorator(login_required, name = 'dispatch')
 class RoleDoctorMixin:
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.employee.get(user=request.user).role == "Doctor":
-            return super().dispatch(request, *args, **kwargs)
-        else:
+        try:
+            if request.user.employee.get(user=request.user).role == "Doctor":
+                return super().dispatch(request, *args, **kwargs)
+            else:
+                raise PermissionDenied
+        except:
             raise PermissionDenied
+
+
 @method_decorator(login_required, name = 'dispatch')
 class Register(RoleReceptionMixin, CreateView):
     form_class = RegisterPatientForm
