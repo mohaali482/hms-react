@@ -66,7 +66,7 @@ class EditPatient(forms.ModelForm):
 
 #     class Meta :
 #         model = EmployeeData
-#         fields = ["Fname", "condition", "prescription"]
+#         fields = ["user", "b_date", "phone_no", sex , "role" , "schedule" ]
 
 class RegisterForm(UserCreationForm):
     class Meta:
