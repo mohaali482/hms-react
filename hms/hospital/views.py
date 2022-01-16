@@ -91,7 +91,7 @@ def condition_info(request, id):
 
 
 
-
+@method_decorator(login_required, name = 'dispatch')
 class RoleReceptionMixin:
 
     def dispatch(self, request, *args, **kwargs):
@@ -99,7 +99,7 @@ class RoleReceptionMixin:
             return super().dispatch(request, *args, **kwargs)
         else:
             raise PermissionDenied
-
+@method_decorator(login_required, name = 'dispatch')
 class RoleDoctorMixin:
 
     def dispatch(self, request, *args, **kwargs):
@@ -107,7 +107,7 @@ class RoleDoctorMixin:
             return super().dispatch(request, *args, **kwargs)
         else:
             raise PermissionDenied
-
+@method_decorator(login_required, name = 'dispatch')
 class Register(RoleReceptionMixin, CreateView):
     form_class = RegisterPatientForm
     success_url = reverse_lazy('search')
@@ -122,7 +122,7 @@ class Register(RoleReceptionMixin, CreateView):
         kwargs['reception'] = True
         return super().get_context_data(**kwargs)
 
-
+@method_decorator(login_required, name = 'dispatch')
 class CreateCondition(CreateView):
     model = Condition
     form_class = RegisterPatientCondition
