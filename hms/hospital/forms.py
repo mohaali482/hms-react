@@ -39,3 +39,20 @@ class RegisterPatientCondition(forms.ModelForm):
     class Meta :
         model = Condition
         fields = ["symtopms", "condition", "prescription"]
+
+
+class EditPatient(forms.ModelForm):
+    def __init__(self, *args, **kwargs) -> None:
+        super(EditPatient, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+
+    class Meta :
+        model = Patient
+        fields = [
+        'first_name',
+        'middle_name',
+        'last_name',
+        'email',
+        'phone',
+        ]
