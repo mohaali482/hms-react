@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
@@ -18,7 +19,7 @@ def home_hospital(request):
         if request.user.employee.get(user=request.user).role == "Reception":
             return redirect('register')
         elif request.user.employee.get(user=request.user).role == "Doctor":
-            raise redirect('doctor')
+            return redirect('doctor')
     except:
         return HttpResponseForbidden("403 Forbidden")
 
@@ -26,9 +27,14 @@ def home_hospital(request):
 @login_required
 def add_queue(request,id):
     patient = Patient.objects.get(id = id)
+    if Queue.objects.filter(patient= patient):
+
+        messages.warning(request, "Patient already in queue")
+        return redirect('search')
     new_queue = Queue(patient=patient)
     new_queue.save()
 
+    messages.success(request, f"Added {patient.full_name()} to the queue.")
     return redirect('search')
 
 
@@ -142,9 +148,10 @@ class RoleDoctorMixin:
 @method_decorator(login_required, name = 'dispatch')
 class Register(RoleReceptionMixin, CreateView):
     form_class = RegisterPatientForm
-    success_url = reverse_lazy('search')
+    success_url = reverse_lazy('register')
     context_object_name = 'form'
     template_name = 'hospital/register.html'
+    
 
     def get_context_data(self, **kwargs):
         kwargs['text'] = 'Add a Patient'
@@ -153,6 +160,10 @@ class Register(RoleReceptionMixin, CreateView):
         kwargs['menuactivech'] = 'newpatient'
         kwargs['reception'] = True
         return super().get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Patient Registered Successfully')
+        return super().form_valid(form)
 
 
 @method_decorator(login_required, name = 'dispatch')
@@ -177,6 +188,10 @@ class CreateCondition(RoleDoctorMixin,CreateView):
         kwargs['Doctor'] = True
         return super().get_context_data(**kwargs)
 
+    def form_valid(self, form):
+        messages.success(self.request, 'Condition Registered Successfully')
+        return super().form_valid(form)
+
 
 @method_decorator(login_required, name = 'dispatch')
 class PatientUpdateView(RoleReceptionMixin, UpdateView):
@@ -192,6 +207,10 @@ class PatientUpdateView(RoleReceptionMixin, UpdateView):
         kwargs['menuactivech'] = 'editpatient'
         kwargs['reception'] = True
         return super().get_context_data(**kwargs)
+    
+    def form_valid(self, form):
+        messages.success(self.request, 'Patient Information Updated Successfully')
+        return super().form_valid(form)
 
 @login_required
 def register(response):
@@ -210,3 +229,7 @@ class UpdateUserProfile(UpdateView):
     model = User
     form_class = UpdateProfileForm
     template_name = "hospital/updateprofile.html"
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Updated User Data Successfully')
+        return super().form_valid(form)

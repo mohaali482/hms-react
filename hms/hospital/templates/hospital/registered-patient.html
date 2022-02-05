@@ -1,5 +1,12 @@
 {% extends 'hospital/base.html' %}
 {% block forms %}
+{% if messages %}
+     {% for message in messages %}
+         <div class="text-center alert alert-{% if message.tag == error %}danger {% else %}{{ message.tags }}{% endif %}">
+             {{ message|safe }}
+         </div>
+     {% endfor %}
+ {% endif %}
 <div class="card">
     <div class="card-header">
       <h3 class="card-title">{{ general }}</h3>
@@ -30,7 +37,7 @@
             {% endif %}
             
             <td>{{ patient.first_name }}</td>
-            <td>{{ patient.middle_name }}</td>
+            <td>{% if patient.middle_name  %}{{ patient.middle_name }}{% endif %}</td>
             <td>{{ patient.last_name }}</td>
             <td>{{ patient.b_date }}</td>
             <td>{{ patient.phone }}</td>
