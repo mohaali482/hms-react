@@ -14,6 +14,6 @@ urlpatterns = [
     path('edit-patient/<pk>', views.PatientUpdateView.as_view(), name='edit-patient'),
     path('patient-history/<str:id>', views.CreateCondition.as_view(), name='patientHistory'),
     path('old-history/<str:id>', views.old_history, name='old_history'),
-    path('condition-info/<str:id>', views.condition_info, name='condition_info'),
+    path('history-info/<str:id>', views.history_info, name='history'),
     path('doctor/', views.doctor_home, name="doctorHome")
 ]

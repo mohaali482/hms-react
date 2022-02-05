@@ -1,45 +1,56 @@
 {% extends 'hospital/base.html' %}
 {% block forms %}
 <div class="container">
-  <div class="card bg-light">
-    <div class="card-header text-muted border-bottom-0">
+  <div class="card card-primary">
+    <div class="card-header text-light border-bottom-0">
       Patient History
     </div>
-    <div class="card-body pt-0">
-      <div class="row">
-        <div class="col-7">
-          <h2 class="lead"><b>Full Name: {{ patient.first_name }} {{ patient.middle_name }} {{ patient.last_name }}</b></h2>
-          <ul class="ml-4 mb-0 fa-ul text-muted">
-            <li class="small">Id: {{ patient.id }}</li>
-            <li class="small">Phone #: {{ patient.phone }}</li>
-            <li class="small">Birth Date: {{ patient.b_date }}</li>
-            <li class="small">Email: {{ patient.email }}</li>
-            <li class="small">Gender: {{ patient.sex }}</li>
-            <li class="small">Blood Type: {{ patient.blood_type }}</li>
-          </ul>
-          <a href="{% url 'old_history' id=patient %}" class = 'btn btn-primary mt-5'>See Old History</a>
+    <div>
+      <div class="card-body pt-0">
+        <div class="row">
+          <div class="col-7">
+            <h2 class="lead"><b>Full Name: {{ patient.first_name }} {{ patient.middle_name }} {{ patient.last_name }}</b></h2>
+            <ul class="ml-4 mb-0 fa-ul text-muted">
+              <li class="small">Id: {{ patient.id }}</li>
+              <li class="small">Phone #: {{ patient.phone }}</li>
+              <li class="small">Birth Date: {{ patient.b_date }}</li>
+              <li class="small">Email: {{ patient.email }}</li>
+              <li class="small">Gender: {{ patient.sex }}</li>
+              <li class="small">Blood Type: {{ patient.blood_type }}</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="card-body">
-    <table id="example1" class="table table-bordered table-striped">
-      <thead>
-      <tr>
-        <th>Id</th>
-        <th>History Date</th>
-      </tr>
-      </thead>
-      <tbody>
-      {% for data in condition %}
+    <div class="card-body">
+      <table id="example1" class="table table-bordered table-striped">
+        <thead>
         <tr>
-          <td><a href={% url 'condition_info' id=data.id %}>{{ data.id }}</a></td>
-          <td>{{ data.date }}</td>
+          <th>Id</th>
+          <th>Condition</th>
+          <th>History Date</th>
+          <th>Actions</th>
         </tr>
-      {% endfor %}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+        {% for data in condition %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ data.condition_name }}</td>
+            <td>{{ data.conditions.date }}</td>
+            <td>
+              <button class="btn btn-primary">
+                <a class = 'text-light' href="{% url 'history' id=data.id %}" >
+                  View Patient History
+                </a>
+              </button>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 {% endblock forms %}

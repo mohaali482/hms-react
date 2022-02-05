@@ -43,7 +43,7 @@ def home_hospital(request):
         else:
             raise PermissionDenied
     except:
-        return redirect('home')
+        return HttpResponseForbidden
 
 
 @login_required
@@ -134,7 +134,7 @@ def doctor_home(request):
     for patient in Queue.objects.all():
         patients.append(patient.patient)
     context['patients'] = patients
-    context['Doctor'] = True
+    context['doctor'] = True
     context['text'] = 'Queue'
     context['menuactivech'] = 'search'
     context['general'] = 'Waiting patients'
@@ -159,18 +159,30 @@ def old_history(request, id):
         return redirect('home')
     patient = Patient.objects.get(id = id)
     history = PatientHistory.objects.filter(patient=patient)
-    conditions =[]
-    for date in history:
-        conditions.append(date.conditions)
-    return render(request,'hospital/view-history.html',{'patient':patient,'condition':conditions})
+    context = {}
+    context['patient'] = patient
+    context['condition'] = history
+    context['menuactive'] = 'managepatient'
+    context['menuactivech'] = 'registeredpatient'
+    context['doctor'] = True
+
+    return render(request,'hospital/view-history.html',context)
 
 
 @login_required
-def condition_info(request, id):
+def history_info(request, id):
     if not role_doctor(request):
         return redirect('home')
-    condition = Condition.objects.get(id = id)
+    history = PatientHistory.objects.get(id = id)
+    context = {}
+    context['patient'] = history.patient
+    context['history'] = history
+    context['menuactive'] = 'managepatient'
+    context['menuactivech'] = 'registeredpatient'
+    context['doctor'] = True
 
+    return render(request, 'hospital/patient-history-detail.html', context)
+    
 
 
 
@@ -240,7 +252,7 @@ class CreateCondition(RoleDoctorMixin,CreateView):
         kwargs['text'] = 'Add a Patient'
         kwargs['general'] = 'Patient Information'
         kwargs['menuactivech'] = 'edithistory'
-        kwargs['Doctor'] = True
+        kwargs['doctor'] = True
         return super().get_context_data(**kwargs)
 
     def form_valid(self, form):
