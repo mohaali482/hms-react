@@ -7,5 +7,5 @@ def home(request):
     return redirect('home-hospital')
 
 def logout(request):
-    logout_('home')
+    logout_(request)
     return redirect('login')
