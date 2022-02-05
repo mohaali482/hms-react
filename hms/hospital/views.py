@@ -30,6 +30,8 @@ def add_queue(request,id):
     new_queue.save()
 
     return redirect('search')
+
+
 @login_required
 def search_patient(request):
     context = {}
@@ -42,6 +44,8 @@ def search_patient(request):
     context['patients'] = patients
     
     return render(request,'hospital/registered-patient.html', context)
+
+
 @login_required
 def patientInfo(request, id):
     context = {}
@@ -52,6 +56,8 @@ def patientInfo(request, id):
     context['menuactivech'] = 'registeredpatient'
     context['patient'] = patient
     return render(request, 'hospital/patient-info.html', context)
+
+
 @login_required
 def edit(request):
     context = {}
@@ -64,6 +70,8 @@ def edit(request):
     context['patients'] = patients
     context['editing'] = True
     return render(request,'hospital/registered-patient.html', context)
+
+
 @login_required
 def doctorHome(request):
     context = {}
@@ -76,6 +84,8 @@ def doctorHome(request):
     context['menuactivech'] = 'search'
     context['general'] = 'Waiting patients'
     return render(request, 'hospital/doctor-home.html', context)
+
+
 @login_required
 def patientHistory(request, id):
     context = {}
@@ -84,6 +94,8 @@ def patientHistory(request, id):
     patient = Patient.objects.get(id = id)
     context['patient'] = patient
     return render(request, 'hospital/patient-history.html', context)
+
+
 @login_required
 def old_history(request, id):
     patient = Patient.objects.get(id = id)
@@ -92,6 +104,7 @@ def old_history(request, id):
     for date in history:
         conditions.append(date.conditions)
     return render(request,'hospital/view-history.html',{'patient':patient,'condition':conditions})
+
 
 @login_required
 def condition_info(request, id):
@@ -111,6 +124,8 @@ class RoleReceptionMixin:
                 raise PermissionDenied
         except:
             raise PermissionDenied
+
+
 @method_decorator(login_required, name = 'dispatch')
 class RoleDoctorMixin:
 
@@ -138,6 +153,7 @@ class Register(RoleReceptionMixin, CreateView):
         kwargs['menuactivech'] = 'newpatient'
         kwargs['reception'] = True
         return super().get_context_data(**kwargs)
+
 
 @method_decorator(login_required, name = 'dispatch')
 class CreateCondition(RoleDoctorMixin,CreateView):
