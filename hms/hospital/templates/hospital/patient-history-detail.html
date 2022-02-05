@@ -1,0 +1,43 @@
+{% extends 'hospital/base.html' %}
+{% block forms %}
+<div class="container">
+  <div class="card card-primary">
+    <div class="card-header text-light border-bottom-0">
+      Patient History
+    </div>
+    <div class="card-body pt-0">
+
+      <div class="row">
+        <div class="col-7">
+          <h2 class="lead"><b>Full Name: {{ patient.first_name }} {{ patient.middle_name }} {{ patient.last_name }}</b></h2>
+          <ul class="ml-4 mb-0 fa-ul text-muted">
+            <li class="small">Id: {{ patient.id }}</li>
+            <li class="small">Phone #: {{ patient.phone }}</li>
+            <li class="small">Birth Date: {{ patient.b_date }}</li>
+            <li class="small">Email: {{ patient.email }}</li>
+            <li class="small">Gender: {{ patient.sex }}</li>
+            <li class="small">Blood Type: {{ patient.blood_type }}</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row mt-5 pb-5">
+        <div class="col-7">
+          <h2 class="lead"><b>Date: {{ history.conditions.date }}</b></h2>
+          <ul class="ml-4 mb-0 fa-ul">
+            <li >Condition: {{ history.conditions.condition }}</li>
+            <li >Symptomps: {{ history.conditions.symptomps }}</li>
+            <li >Prescriptions: {{ history.conditions.prescription }}</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+    <div class = "m-3 pl-2">
+    <button class = 'btn btn-primary' onclick="javascript:history.go(-1);">
+      Back
+    </button>
+    </div>
+  </div>
+</div>
+{% endblock forms %}
