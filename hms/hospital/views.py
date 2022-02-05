@@ -215,6 +215,10 @@ class PatientDeleteView(DeleteView):
         kwargs['reception'] = True
         return super().get_context_data(**kwargs)
 
+    def form_valid(self, form):
+        messages.success(self.request, 'Patient Deleted Successfully')
+        return super().form_valid(form)
+
 
 @login_required
 def register(response):

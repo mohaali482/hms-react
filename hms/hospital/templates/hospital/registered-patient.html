@@ -1,12 +1,46 @@
 {% extends 'hospital/base.html' %}
 {% block forms %}
+{% block toast_script %}
 {% if messages %}
      {% for message in messages %}
-         <div class="text-center alert alert-{% if message.tags == 'warning' %}danger {% else %}{{ message.tags }}{% endif %}">
-             {{ message|safe }}
+      {% if message.tags == 'warning' %}
+        <script>
+          var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+          });
+          Toast.fire({
+            icon: 'danger',
+            title: "{{ message|safe }}"
+          })
+      </script>
+      {% else %}
+      <script>
+        var Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000
+        });
+            Toast.fire({
+            icon: 'success',
+            title: "{{ message|safe }}"
+          })
+    </script>
+      {% endif %}
+         <div class="text-center alert alert-">
+             
          </div>
+         
      {% endfor %}
  {% endif %}
+
+
+ {% endblock toast_script %}  
+
+ 
 <div class="card">
     <div class="card-header">
       <h3 class="card-title">{{ general }}</h3>

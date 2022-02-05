@@ -1,12 +1,6 @@
 {% extends 'hospital/base.html' %}
 {% block forms %}
-{% if messages %}
-     {% for message in messages %}
-         <div class="text-center alert alert-{{ message.tags }}">
-             {{ message|safe }}
-         </div>
-     {% endfor %}
- {% endif %}
+
 <div class="content">
     <div class="container-fluid">
           <div class="card card-primary">
@@ -32,4 +26,5 @@
             </form>
           </div>
     </div>
+</div>
 {% endblock forms %}
