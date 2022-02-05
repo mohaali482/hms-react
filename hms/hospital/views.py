@@ -13,6 +13,8 @@ from .forms import *
 from django.core.exceptions import PermissionDenied
 # Create your views here.
 
+
+#we are defing the role of recptionist
 def role_reception(request):
     try:
         if request.user.employee.get(user=request.user).role == "Reception":
@@ -23,6 +25,12 @@ def role_reception(request):
         return False
 
 
+
+
+
+
+#we are defing the doctor role
+
 def role_doctor(request):
     try:
         if request.user.employee.get(user=request.user).role == "Doctor":
@@ -32,6 +40,12 @@ def role_doctor(request):
     except:
         return False
 
+
+
+
+
+
+#we are defing the home hosptal page depending  on the role of the actor
 
 @login_required
 def home_hospital(request):
@@ -45,6 +59,11 @@ def home_hospital(request):
     except:
         return redirect('home')
 
+
+
+
+
+# we are adding the queue to the reciptonist and its functionalty and requiring login for it
 
 @login_required
 def add_queue(request,id):
@@ -63,6 +82,11 @@ def add_queue(request,id):
     messages.success(request, f"Added {patient.full_name()} to the queue.")
     return redirect('search')
 
+
+
+
+
+# we are adding the search for the receptionist
 
 @login_required
 def search_patient(request):
@@ -83,6 +107,9 @@ def search_patient(request):
     
     return render(request,'hospital/registered-patient.html', context)
 
+
+# we are adding queue list
+
 def queue_list(request):
     if not role_reception(request):
         return redirect('home')
@@ -98,6 +125,11 @@ def queue_list(request):
     context['menuactive'] = 'managequeue'
     return render(request,'hospital/manage-queue.html', context)
 
+
+
+
+# we are adding dequeue which functions ass queue remover
+
 @login_required
 def dequeue(request, id):
     if not role_reception(request):
@@ -110,6 +142,10 @@ def dequeue(request, id):
 
     messages.success(request, f'Removed {patient.full_name()} from the queue.')
     return redirect('search')
+
+
+
+# we are adding patientInfo to our views
 
 @login_required
 def patientInfo(request, id):
@@ -124,6 +160,9 @@ def patientInfo(request, id):
     context['patient'] = patient
     return render(request, 'hospital/patient-info.html', context)
 
+
+
+# we are creating a doctor home page for our doctor and adding to it what is needed
 
 @login_required
 def doctor_home(request):
@@ -141,6 +180,9 @@ def doctor_home(request):
     return render(request, 'hospital/doctor-home.html', context)
 
 
+
+#we are adding patient history for our doctor to Edit
+
 @login_required
 def patient_history(request, id):
     if not role_doctor(request):
@@ -152,6 +194,10 @@ def patient_history(request, id):
     context['patient'] = patient
     return render(request, 'hospital/patient-history.html', context)
 
+
+
+
+#we are adding view history for our doctor
 
 @login_required
 def old_history(request, id):
@@ -165,6 +211,9 @@ def old_history(request, id):
     return render(request,'hospital/view-history.html',{'patient':patient,'condition':conditions})
 
 
+
+#we are adding condition for our doctor
+
 @login_required
 def condition_info(request, id):
     if not role_doctor(request):
@@ -173,6 +222,8 @@ def condition_info(request, id):
 
 
 
+
+# we are making a mixin to define the receptionist role and make her page only accessable only for her
 
 @method_decorator(login_required, name = 'dispatch')
 class RoleReceptionMixin:
@@ -187,6 +238,9 @@ class RoleReceptionMixin:
             raise PermissionDenied
 
 
+
+# we are creating a doctor mixin to define the doctor page and restrict him 
+
 @method_decorator(login_required, name = 'dispatch')
 class RoleDoctorMixin:
 
@@ -199,6 +253,10 @@ class RoleDoctorMixin:
         except:
             raise PermissionDenied
 
+
+
+
+# we are defining who can register patients 
 
 @method_decorator(login_required, name = 'dispatch')
 class Register(RoleReceptionMixin, CreateView):
@@ -220,6 +278,11 @@ class Register(RoleReceptionMixin, CreateView):
         messages.success(self.request, 'Patient Registered Successfully')
         return super().form_valid(form)
 
+
+
+
+
+# we are defining creating conditions for patient and defining who can do it 
 
 @method_decorator(login_required, name = 'dispatch')
 class CreateCondition(RoleDoctorMixin,CreateView):
@@ -246,6 +309,10 @@ class CreateCondition(RoleDoctorMixin,CreateView):
     def form_valid(self, form):
         messages.success(self.request, 'Condition Registered Successfully')
         return super().form_valid(form)
+
+
+
+
 
 
 @method_decorator(login_required, name = 'dispatch')
@@ -302,7 +369,7 @@ def register(response):
 
     return render(response, "./hospital/register.html",{"form": form}) 
 
-
+#we made a class here to update user info
 class UpdateUserProfile(UpdateView):
     model = User
     form_class = UpdateProfileForm
