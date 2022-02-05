@@ -1,3 +1,4 @@
+from ast import arg
 from django.contrib import messages
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -241,6 +242,7 @@ class CreateCondition(RoleDoctorMixin,CreateView):
     context_object_name = 'form'
     template_name = 'hospital/patient-history.html'
     patient = None
+    condition = None
 
     def get(self, request, *args, **kwargs):
         self.patient = Patient.objects.get(id = kwargs['id'])
@@ -256,8 +258,15 @@ class CreateCondition(RoleDoctorMixin,CreateView):
         return super().get_context_data(**kwargs)
 
     def form_valid(self, form):
+        self.patient = Patient.objects.get(id =self.kwargs['id'])
         messages.success(self.request, 'Condition Registered Successfully')
-        return super().form_valid(form)
+        response = super().form_valid(form)
+        pk = form.instance.pk
+        self.condition = Condition.objects.get(id = pk)
+        patient_history_new = PatientHistory(patient = self.patient, conditions=self.condition)
+        patient_history_new.save()
+        
+        return response
 
 
 @method_decorator(login_required, name = 'dispatch')

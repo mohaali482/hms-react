@@ -32,7 +32,7 @@ class Patient(models.Model):
 class Condition(models.Model):
     symtopms = models.TextField(_("Symptopms"))
     condition = models.TextField(_("Conditions"))
-    prescription = models.TextField(_("Prescription"))
+    prescription = models.TextField(_("Prescription"), blank=True, null=True)
     date = models.DateField(_("History Date"), default=timezone.now, blank=True, null=True)
 
     def __str__(self) -> str:
