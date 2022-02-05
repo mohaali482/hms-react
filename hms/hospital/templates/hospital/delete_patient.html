@@ -2,16 +2,13 @@
 {% block forms %}
 <div class="container">
   <div class="card bg-light">
-    <div class="card-header text-muted border-bottom-0">
+    <div class="card-header border-bottom-0">
       Patient Info
-      <a href="{% url 'add_queue' id=patient.id %}" class="btn btn-primary">
-        Add To Queue
-      </a>
     </div>
     <div class="card-body pt-0">
       <div class="row">
         <div class="col-7">
-          <h2 class="lead"><b>Full Name: {{ patient.first_name }} {{ patient.middle_name }} {{ patient.last_name }}</b></h2>
+          <h2 class="lead"><b>Full Name: {{ patient.full_name }}</b></h2>
           <ul class="ml-4 mb-0 fa-ul text-muted">
             <li class="small">Id: {{ patient.id }}</li>
             <li class="small">Phone #: {{ patient.phone }}</li>
@@ -26,22 +23,15 @@
     <div class="card-footer">
       <div class="text-right">
         <div class="inline-form">
-          <form action="" class = "form-group" style= "padding: 10px; display: flex;">
-            <style>
-              .input {
-                width: 20%;
-              }
-              .form-group {
-                padding: 0 15px;
-              }
-            </style>
+          <form class = "form-group d-block" style= "padding: 10px; display: flex;" method = "post">
+            {% csrf_token %}
+            <p class = 'text-left'>Do you really want to delete this patient?</p>
             <div class="form-group input">
-              <input type="date" class = "form-control " placeholder="Appointment Date">
-            </div>
-            <div>
-              <a href="#" class="btn bg-teal">
-                Add Appointment
-              </a>
+                  <input class = 'btn btn-danger text-light' value= 'Yes' type= 'submit'>
+                <button class = "btn btn-success">
+                  <a href="{% url 'search' %}" class = 'text-light'>No</a>
+                  </button>
+                </button>
             </div>
           </form>
         </div>

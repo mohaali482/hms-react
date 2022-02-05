@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from django.utils import timezone
 from django import forms
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -63,32 +63,6 @@ def patientInfo(request, id):
     context['patient'] = patient
     return render(request, 'hospital/patient-info.html', context)
 
-
-@login_required
-def edit(request):
-    context = {}
-    context['text'] = 'Edit Patient Info'
-    context['general'] = 'Patient Information'
-    context['reception'] = True
-    patients = Patient.objects.all()
-    context['menuactive'] = 'managepatient'
-    context['menuactivech'] = 'editpatient'
-    context['patients'] = patients
-    context['editing'] = True
-    return render(request,'hospital/registered-patient.html', context)
-
-@login_required
-def delete_patient(request, pk):
-    context = {}
-    context['text'] = 'Edit Patient Info'
-    context['general'] = 'Patient Information'
-    context['reception'] = True
-    patients = Patient.objects.all()
-    context['menuactive'] = 'managepatient'
-    context['menuactivech'] = 'editpatient'
-    context['patients'] = patients
-    context['editing'] = True
-    return render(request,'hospital/registered-patient.html', context)
 
 @login_required
 def doctorHome(request):
@@ -210,19 +184,37 @@ class PatientUpdateView(RoleReceptionMixin, UpdateView):
     model = Patient
     form_class = EditPatient
     template_name = "hospital/edit-patient.html"
+    success_url = reverse_lazy('search')
     
 
     def get_context_data(self, **kwargs):
         kwargs['text'] = 'Add a Patient'
         kwargs['general'] = 'Patient Information'
         kwargs['menuactive'] = 'managepatient'
-        kwargs['menuactivech'] = 'editpatient'
+        kwargs['menuactivech'] = 'registeredpatient'
         kwargs['reception'] = True
         return super().get_context_data(**kwargs)
     
     def form_valid(self, form):
         messages.success(self.request, 'Patient Information Updated Successfully')
         return super().form_valid(form)
+
+
+@method_decorator(login_required, name = 'dispatch')
+
+class PatientDeleteView(DeleteView):
+    model = Patient
+    template_name = "hospital/delete_patient.html"
+    success_url = reverse_lazy('search')
+
+    def get_context_data(self, **kwargs):
+        kwargs['text'] = 'Add a Patient'
+        kwargs['general'] = 'Patient Information'
+        kwargs['menuactive'] = 'managepatient'
+        kwargs['menuactivech'] = 'registeredpatient'
+        kwargs['reception'] = True
+        return super().get_context_data(**kwargs)
+
 
 @login_required
 def register(response):

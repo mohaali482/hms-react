@@ -2,7 +2,7 @@
 {% block forms %}
 {% if messages %}
      {% for message in messages %}
-         <div class="text-center alert alert-{% if message.tag == error %}danger {% else %}{{ message.tags }}{% endif %}">
+         <div class="text-center alert alert-{% if message.tags == 'warning' %}danger {% else %}{{ message.tags }}{% endif %}">
              {{ message|safe }}
          </div>
      {% endfor %}
@@ -31,12 +31,7 @@
         <tbody>
         {% for patient in patients %}
           <tr>
-            {% if editing %}
-            <td><a href={% url 'edit-patient' pk=patient.id %}>{{ patient.id }}</a></td>
-            {% else %}
             <td><a href={% url 'patientInfo' id=patient.id %}>{{ patient.id }}</a></td>
-            {% endif %}
-            
             <td>{{ patient.first_name }}</td>
             <td>{% if patient.middle_name  %}{{ patient.middle_name }}{% endif %}</td>
             <td>{{ patient.last_name }}</td>

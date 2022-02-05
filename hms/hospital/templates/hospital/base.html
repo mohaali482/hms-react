@@ -113,20 +113,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <p>Registered Pateint</p>
                     </a>
                   </li>
-                  <li class="nav-item">
-                    <a href="{% url 'edit' %}" class="nav-link {% if menuactivech == 'editpatient' %}active{% endif %}">
-                      <i class="fas fa-user-edit" style= 'padding-right:5px;padding-left:5px;'></i>
-                      <p>Edit Patient Data</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link {% if menuactivech == 'deletepatient' %}active{% endif %}">
-                      <i class="fas fa-user-minus" style= 'padding-right:5px;padding-left:5px;'></i>
-                      <p>Delete Patient Data</p>
-                    </a>
-                  </li>
+
                 </ul>
               </li>
+
+              <li class="nav-item ">
+                <a href="#" class="nav-link {% if menuactive == 'managequeue' %}active{% endif %} ">
+                    <i class="fas fa-people-arrows"></i>
+                  <p>
+                    Manage Queue 
+                  </p>
+                </a>
+              </li>
+
               <li class="nav-item {% if menuactive == 'manageappointemt' %}menu-open{% endif %}">
                 <a href="#" class="nav-link ">
                     <i class="fas fa-calendar-check"></i>
@@ -215,8 +214,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Main content -->
         {% block forms %}
         {% endblock forms %}
-          <!-- /.container-fluid -->
-        </div>
         <!-- /.content -->
       </div>
       <!-- /.content-wrapper -->
