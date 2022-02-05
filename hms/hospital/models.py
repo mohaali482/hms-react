@@ -46,6 +46,9 @@ class PatientHistory(models.Model):
     def __str__(self) -> str:
         return str(self.patient.first_name + " " + str(self.conditions.date))
 
+    def condition_name(self) -> str:
+        return str(self.conditions.condition)
+
 
 class Schedule(models.Model):
     date = models.DateTimeField(_("Entry date and time"), auto_now=False, auto_now_add=False)
