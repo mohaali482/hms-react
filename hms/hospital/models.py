@@ -4,7 +4,11 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
 # Create your models here.
 
+# in models we create our structure where we save our data in 
 
+
+
+# we created a class for patient to add all of its info to it
 class Patient(models.Model):
     first_name = models.CharField(_("First Name"), max_length=50)
     middle_name = models.CharField(_("Middle Name"), max_length=50,blank=True, null= True)
@@ -28,7 +32,9 @@ class Patient(models.Model):
         else:
             return f"{self.first_name} {self.last_name}"
 
-    
+
+
+# we creating a condition class for our patient     
 class Condition(models.Model):
     symtopms = models.TextField(_("Symptopms"))
     condition = models.TextField(_("Conditions"))
@@ -38,6 +44,9 @@ class Condition(models.Model):
     def __str__(self) -> str:
         return self.condition
 
+
+
+# we creating a patient history where paitent history info get saved in 
 
 class PatientHistory(models.Model):
     patient = models.ForeignKey("Patient", verbose_name=_("Patient"), on_delete=models.CASCADE)
@@ -50,12 +59,19 @@ class PatientHistory(models.Model):
         return str(self.conditions.condition)
 
 
+
+
+#we create schedule form for our employees
+
 class Schedule(models.Model):
     date = models.DateTimeField(_("Entry date and time"), auto_now=False, auto_now_add=False)
 
     def __str__(self) -> str:
         return str(self.date)
 
+
+
+# we are making an employee class structure to hile employee data in it and their role 
 
 class EmployeeData(models.Model):
     user = models.ForeignKey(User, verbose_name=_("User"), on_delete=models.CASCADE, related_name='employee')
@@ -68,6 +84,9 @@ class EmployeeData(models.Model):
     def __str__(self) -> str:
         return str(self.user.username)
 
+
+
+# we creating a queue class to hold our queues in 
 
 class Queue(models.Model):
     patient = models.ForeignKey("Patient", verbose_name=_("Patient"), on_delete=models.CASCADE, related_name='patient')
