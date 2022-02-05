@@ -13,24 +13,50 @@ from .forms import *
 from django.core.exceptions import PermissionDenied
 # Create your views here.
 
+def role_reception(request):
+    try:
+        if request.user.employee.get(user=request.user).role == "Reception":
+            return True
+        else:
+            raise PermissionDenied
+    except:
+        return False
+
+
+def role_doctor(request):
+    try:
+        if request.user.employee.get(user=request.user).role == "Doctor":
+            return True
+        else:
+            raise PermissionDenied
+    except:
+        return False
+
+
 @login_required
 def home_hospital(request):
     try:
-        if request.user.employee.get(user=request.user).role == "Reception":
+        if role_reception(request):
             return redirect('register')
-        elif request.user.employee.get(user=request.user).role == "Doctor":
+        elif role_doctor(request):
             return redirect('doctorHome')
+        else:
+            raise PermissionDenied
     except:
-        return HttpResponseForbidden("403 Forbidden")
+        return redirect('home')
 
 
 @login_required
 def add_queue(request,id):
+    if not role_reception(request):
+        return redirect('home')
     patient = Patient.objects.get(id = id)
     if Queue.objects.filter(patient= patient):
 
         messages.warning(request, "Patient already in queue")
         return redirect('search')
+
+
     new_queue = Queue(patient=patient)
     new_queue.save()
 
@@ -40,6 +66,8 @@ def add_queue(request,id):
 
 @login_required
 def search_patient(request):
+    if not role_reception(request):
+        return redirect('home')
     context = {}
     context['text'] = 'Add a Patient'
     context['general'] = 'Patient Information'
@@ -54,6 +82,8 @@ def search_patient(request):
 
 @login_required
 def patientInfo(request, id):
+    if not role_reception(request):
+        return redirect('home')
     context = {}
     context['reception'] = True
     context['title'] = 'Patient Info'
@@ -66,6 +96,8 @@ def patientInfo(request, id):
 
 @login_required
 def doctorHome(request):
+    if not role_doctor(request):
+        return redirect('home')
     context = {}
     patients = []
     for patient in Queue.objects.all():
@@ -80,6 +112,8 @@ def doctorHome(request):
 
 @login_required
 def patientHistory(request, id):
+    if not role_doctor(request):
+        return redirect('home')
     context = {}
     context['reception'] = True
     context['title'] = 'Patient History'
@@ -90,6 +124,8 @@ def patientHistory(request, id):
 
 @login_required
 def old_history(request, id):
+    if not role_doctor(request):
+        return redirect('home')
     patient = Patient.objects.get(id = id)
     history = PatientHistory.objects.filter(patient=patient)
     conditions =[]
@@ -100,6 +136,8 @@ def old_history(request, id):
 
 @login_required
 def condition_info(request, id):
+    if not role_doctor(request):
+        return redirect('home')
     condition = Condition.objects.get(id = id)
 
 
@@ -201,8 +239,7 @@ class PatientUpdateView(RoleReceptionMixin, UpdateView):
 
 
 @method_decorator(login_required, name = 'dispatch')
-
-class PatientDeleteView(DeleteView):
+class PatientDeleteView(RoleReceptionMixin, DeleteView):
     model = Patient
     template_name = "hospital/delete_patient.html"
     success_url = reverse_lazy('search')
@@ -222,6 +259,8 @@ class PatientDeleteView(DeleteView):
 
 @login_required
 def register(response):
+    if not role_reception(request):
+        return redirect('home')
     if response.method == "POST":
         form = RegisterForm(response.POST) 
         if form.is_valid():
