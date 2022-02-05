@@ -64,6 +64,20 @@ def edit(request):
     context['patients'] = patients
     context['editing'] = True
     return render(request,'hospital/registered-patient.html', context)
+
+@login_required
+def delete_patient(request, pk):
+    context = {}
+    context['text'] = 'Edit Patient Info'
+    context['general'] = 'Patient Information'
+    context['reception'] = True
+    patients = Patient.objects.all()
+    context['menuactive'] = 'managepatient'
+    context['menuactivech'] = 'editpatient'
+    context['patients'] = patients
+    context['editing'] = True
+    return render(request,'hospital/registered-patient.html', context)
+
 @login_required
 def doctorHome(request):
     context = {}

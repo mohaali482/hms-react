@@ -18,6 +18,7 @@
           <th>Email</th>
           <th>Sex</th>
           <th>Blood Type</th>
+          <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -37,6 +38,19 @@
             <td>{{ patient.email }}</td>
             <td>{{ patient.sex }}</td>
             <td>{{ patient.blood_type }}</td>
+            <td>
+              <button class = "btn btn-success">
+                <a href={% url 'edit-patient' pk=patient.id %} class = 'text-light'>Edit</a>
+              </button>
+              <button class = "btn btn-danger">
+                <a href={% url 'delete-patient' pk=patient.id %} class = 'text-light' >Delete</a>
+              </button>
+              <button class="btn btn-primary">
+                <a class = 'text-light' href="{% url 'add_queue' id=patient.id %}" >
+                  Add To Queue
+                </a>
+              </button>
+            </td>
           </tr>
         {% endfor %}
         </tbody>
