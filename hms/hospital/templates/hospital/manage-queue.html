@@ -1,0 +1,87 @@
+{% extends 'hospital/base.html' %}
+{% block forms %}
+{% block toast_script %}
+{% if messages %}
+     {% for message in messages %}
+      {% if message.tags == 'warning' %}
+        <script>
+          var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+          });
+          Toast.fire({
+            icon: 'danger',
+            title: "{{ message|safe }}"
+          })
+      </script>
+      {% else %}
+      <script>
+        var Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000
+        });
+            Toast.fire({
+            icon: 'success',
+            title: "{{ message|safe }}"
+          })
+    </script>
+      {% endif %}
+         <div class="text-center alert alert-">
+             
+         </div>
+         
+     {% endfor %}
+ {% endif %}
+
+
+ {% endblock toast_script %}  
+
+
+<div class="card">
+    <div class="card-header">
+      <h3 class="card-title">{{ general }}</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+      <table id="example1" class="table table-bordered table-striped">
+        <thead>
+        <tr>
+          <th>Place</th>
+          <th>First Name</th>
+          <th>Middle Name</th>
+          <th>Last Name</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Sex</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for patient in queue %}
+          <tr>
+            <td>{{ forloop.counter  }}</td>
+            <td>{{ patient.first_name }}</td>
+            <td>{% if patient.middle_name  %}{{ patient.middle_name }}{% endif %}</td>
+            <td>{{ patient.last_name }}</td>
+            <td>{{ patient.phone }}</td>
+            <td>{{ patient.email }}</td>
+            <td>{{ patient.sex }}</td>
+            <td>
+              <button class="btn btn-warning">
+                <a class = 'text-light' href="{% url 'dequeue' id=patient.id %}" >
+                  Remove From Queue
+                </a>
+              </button>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <!-- /.card-body -->
+  </div>
+{% endblock forms %}
