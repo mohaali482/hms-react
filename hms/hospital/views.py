@@ -19,7 +19,7 @@ def home_hospital(request):
         if request.user.employee.get(user=request.user).role == "Reception":
             return redirect('register')
         elif request.user.employee.get(user=request.user).role == "Doctor":
-            return redirect('doctor')
+            return redirect('doctorHome')
     except:
         return HttpResponseForbidden("403 Forbidden")
 
