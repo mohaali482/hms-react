@@ -73,12 +73,43 @@ def search_patient(request):
     context['general'] = 'Patient Information'
     context['reception'] = True
     patients = Patient.objects.all()
+    queue = []
+    for items in Queue.objects.all():
+        queue.append(items.get_patient())
     context['menuactive'] = 'managepatient'
     context['menuactivech'] = 'registeredpatient'
     context['patients'] = patients
+    context['queue'] = queue
     
     return render(request,'hospital/registered-patient.html', context)
 
+def queue_list(request):
+    if not role_reception(request):
+        return redirect('home')
+
+    context = {}
+
+    context['general'] = 'Patient Information'
+    context['reception'] = True
+    queue = []
+    for items in Queue.objects.all():
+        queue.append(items.get_patient())
+    context['queue'] = queue
+    context['menuactive'] = 'managequeue'
+    return render(request,'hospital/manage-queue.html', context)
+
+@login_required
+def dequeue(request, id):
+    if not role_reception(request):
+        return redirect('home')
+
+    patient = Patient.objects.get(id=id)
+
+    queue = Queue.objects.get(patient = patient)
+    queue.delete()
+
+    messages.success(request, f'Removed {patient.full_name()} from the queue.')
+    return redirect('search')
 
 @login_required
 def patientInfo(request, id):
@@ -95,7 +126,7 @@ def patientInfo(request, id):
 
 
 @login_required
-def doctorHome(request):
+def doctor_home(request):
     if not role_doctor(request):
         return redirect('home')
     context = {}
@@ -111,7 +142,7 @@ def doctorHome(request):
 
 
 @login_required
-def patientHistory(request, id):
+def patient_history(request, id):
     if not role_doctor(request):
         return redirect('home')
     context = {}

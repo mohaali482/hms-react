@@ -1,5 +1,46 @@
 {% extends 'hospital/base.html' %}
 {% block forms %}
+{% block toast_script %}
+{% if messages %}
+     {% for message in messages %}
+      {% if message.tags == 'warning' %}
+        <script>
+          var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+          });
+          Toast.fire({
+            icon: 'danger',
+            title: "{{ message|safe }}"
+          })
+      </script>
+      {% else %}
+      <script>
+        var Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000
+        });
+            Toast.fire({
+            icon: 'success',
+            title: "{{ message|safe }}"
+          })
+    </script>
+      {% endif %}
+         <div class="text-center alert alert-">
+             
+         </div>
+         
+     {% endfor %}
+ {% endif %}
+
+
+ {% endblock toast_script %}  
+
+
 <div class="card">
     <div class="card-header">
       <h3 class="card-title">{{ general }}</h3>
@@ -9,29 +50,33 @@
       <table id="example1" class="table table-bordered table-striped">
         <thead>
         <tr>
-          <th>Id</th>
+          <th>Place</th>
           <th>First Name</th>
           <th>Middle Name</th>
           <th>Last Name</th>
-          <th>Birth Date</th>
           <th>Phone</th>
           <th>Email</th>
           <th>Sex</th>
-          <th>Blood Type</th>
+          <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         {% for patient in patients %}
           <tr>
-            <td><a href={% url 'patientHistory' id=patient.id %}>{{ patient.id }}</a></td>
+            <td>{{ forloop.counter  }}</td>
             <td>{{ patient.first_name }}</td>
-            <td>{{ patient.middle_name }}</td>
+            <td>{% if patient.middle_name  %}{{ patient.middle_name }}{% endif %}</td>
             <td>{{ patient.last_name }}</td>
-            <td>{{ patient.b_date }}</td>
             <td>{{ patient.phone }}</td>
             <td>{{ patient.email }}</td>
             <td>{{ patient.sex }}</td>
-            <td>{{ patient.blood_type }}</td>
+            <td>
+              <button class="btn btn-primary">
+                <a class = 'text-light' href="{% url 'patientHistory' id=patient.id %}" >
+                  View Patient
+                </a>
+              </button>
+            </td>
           </tr>
         {% endfor %}
         </tbody>

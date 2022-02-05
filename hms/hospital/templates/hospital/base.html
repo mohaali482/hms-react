@@ -119,10 +119,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
 
               <li class="nav-item ">
-                <a href="#" class="nav-link {% if menuactive == 'managequeue' %}active{% endif %} ">
+                <a href="{% url 'manage_queue' %}" class="nav-link {% if menuactive == 'managequeue' %}active{% endif %} ">
                     <i class="fas fa-people-arrows"></i>
                   <p>
-                    Manage Queue 
+                    Queue 
                   </p>
                 </a>
               </li>

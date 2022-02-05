@@ -8,10 +8,12 @@ urlpatterns = [
     path('search',views.search_patient, name='search'),
     path('patient/<str:id>', views.patientInfo, name='patientInfo'),
     path('queue/<str:id>', views.add_queue, name='add_queue'),
+    path('dequeue/<str:id>', views.dequeue, name = 'dequeue'),
+    path('manage-queue', views.queue_list, name = 'manage_queue'),
     path('delete-patient/<pk>', views.PatientDeleteView.as_view(), name= 'delete-patient'),
     path('edit-patient/<pk>', views.PatientUpdateView.as_view(), name='edit-patient'),
     path('patient-history/<str:id>', views.CreateCondition.as_view(), name='patientHistory'),
     path('old-history/<str:id>', views.old_history, name='old_history'),
     path('condition-info/<str:id>', views.condition_info, name='condition_info'),
-    path('doctor/', views.doctorHome, name="doctorHome")
+    path('doctor/', views.doctor_home, name="doctorHome")
 ]
