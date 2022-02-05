@@ -325,7 +325,7 @@ class CreateCondition(RoleDoctorMixin,CreateView):
 
 
 
-
+# we are making a class to define who can update patient info and update its views
 
 @method_decorator(login_required, name = 'dispatch')
 class PatientUpdateView(RoleReceptionMixin, UpdateView):
@@ -348,6 +348,11 @@ class PatientUpdateView(RoleReceptionMixin, UpdateView):
         return super().form_valid(form)
 
 
+
+
+
+# we are making a class to define who can delete patients and its functionality
+
 @method_decorator(login_required, name = 'dispatch')
 class PatientDeleteView(RoleReceptionMixin, DeleteView):
     model = Patient
@@ -367,8 +372,11 @@ class PatientDeleteView(RoleReceptionMixin, DeleteView):
         return super().form_valid(form)
 
 
+
+# we are defing the registion a doctor form 
+
 @login_required
-def register(response):
+def register(request ,response):
     if not role_reception(request):
         return redirect('home')
     if response.method == "POST":
