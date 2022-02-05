@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 
 class Patient(models.Model):
     first_name = models.CharField(_("First Name"), max_length=50)
-    middle_name = models.CharField(_("Middle Name"), max_length=50)
+    middle_name = models.CharField(_("Middle Name"), max_length=50,blank=True, null= True)
     last_name = models.CharField(_("Last Name"), max_length=50)
     b_date = models.DateField(_("Birth Date"), auto_now=False, auto_now_add=False)
     phone = models.CharField(_("Phone number"), max_length=15)
@@ -20,6 +20,13 @@ class Patient(models.Model):
             return self.email
         else:
             return f'Phone : {self.phone}'
+    
+    def full_name(self) -> str:
+        if self.middle_name:
+            return f"{self.first_name} {self.middle_name} {self.last_name}"
+
+        else:
+            return f"{self.first_name} {self.last_name}"
 
     
 class Condition(models.Model):
@@ -64,4 +71,7 @@ class Queue(models.Model):
 
     def __str__(self):
         return self.patient.first_name
+
+    def get_patient(self) -> Patient:
+        return self.patient
     

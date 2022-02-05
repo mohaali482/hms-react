@@ -4,7 +4,7 @@ from django.shortcuts import redirect, render
 
 
 def home(request):
-    return redirect('login')
+    return redirect('home-hospital')
 
 def logout(request):
     logout_('home')

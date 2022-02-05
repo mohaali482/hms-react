@@ -1,5 +1,12 @@
 {% extends 'hospital/base.html' %}
 {% block forms %}
+{% if messages %}
+     {% for message in messages %}
+         <div class="text-center alert alert-{{ message.tags }}">
+             {{ message|safe }}
+         </div>
+     {% endfor %}
+ {% endif %}
 <div class="content">
     <div class="container-fluid">
           <div class="card card-primary">
@@ -8,7 +15,7 @@
                       {{general}}
                   </h3>
               </div>
-              <form method="post" action="{% url 'home' %}">
+              <form method="post" action="{% url 'register' %}">
                 {% csrf_token %}
                 <div class="card-body" style = 'display:block;'>
                     {% for field in form %}
