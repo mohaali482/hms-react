@@ -29,7 +29,7 @@
     </div>
     <!-- /.card-header -->
     <!-- form start -->
-    <form role="form" method='post'>
+    <form action = {% url 'patientHistory' patient.id %} role="form" method='post'>
       {% csrf_token %}
       <div class="card-body">
         {% for field in form %}
