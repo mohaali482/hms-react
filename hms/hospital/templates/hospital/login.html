@@ -16,18 +16,28 @@
 	<link rel="stylesheet" href={% static "css/style.css"%}>
 
 	</head>
-	<body class="img js-fullheight" style="background-image: url({% static 'images/bg.jpg' %});">
+	<body class="img js-fullheight" style="background-image: url({% static 'images/hospital.jpg' %});">
 	<section class="ftco-section">
 		<div class="container">
 			<div class="row justify-content-center">
-				<div class="col-md-6 text-center mb-5">
-					<i class="fas fa-users" style = "size:180px;"></i>
-				</div>
+				
+				<img
+					  src="{% static 'hospital_logo.jpg' %}"
+					  alt="AdminLTE
+					Logo"
+					  class="brand-image img-circle elevation-3"
+					  style="opacity: 0.8"
+				/>
+				
 			</div>
+
+
+
+		
 			<div class="row justify-content-center">
 				<div class="col-md-6 col-lg-4">
 					<div class="login-wrap p-0">
-		      	<h2 class="mb-4 text-center">Login</h2>
+		      	
 				  {% block form %}
 		      	<form action="#" class="signin-form" method='post'>
 					  {% csrf_token %}
@@ -48,7 +58,7 @@
 
 				</script>
 	            <div class="form-group">
-	            	<button type="submit" class="form-control btn btn-primary submit px-3">Sign In</button>
+	            	<button type="submit" class="form-control btn btn-primary submit px-3">Login</button>
 	            </div>
 	            
 	          </form>
