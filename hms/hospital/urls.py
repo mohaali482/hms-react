@@ -2,6 +2,12 @@ from unicodedata import name
 from django.urls import path
 from . import views
 
+
+# in Urls we make a our urls and we define what they refer too , in other words we connect our views with urls
+
+
+
+# we are linking our views to our urls here
 urlpatterns = [
     path('home/',views.home_hospital,name='home-hospital'),
     path('register/', views.Register.as_view(), name='register'),
