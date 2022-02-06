@@ -427,3 +427,17 @@ class UpdateUserProfile(UpdateView):
 def account(request):
     return render(request, 'hospital/account.html',{})
 
+
+
+
+
+def register(response):
+    if response.method == "POST":
+        form = RegisterForm(response.POST) 
+        if form.is_valid():
+            form.save()
+        return redirect("home/")
+    else:   
+        form = RegisterForm()
+
+    return render(response, "./hostpital/registeruser.html",{"form": form})
