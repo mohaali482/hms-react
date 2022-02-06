@@ -47,7 +47,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Main Sidebar Container -->
       <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="home/" class="brand-link">
+        <a href="{% url 'home' %}" class="brand-link">
           <img
             src="{% static 'hospital_logo.jpg' %}"
             alt="AdminLTE
@@ -55,11 +55,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             class="brand-image img-circle elevation-3"
             style="opacity: 0.8"
           />
-          <span class="brand-text font-weight-light">{% if Doctor %}
-            Doctor
-            {% else %}
-            Reception
-            {% endif %}
+          <span class="brand-text font-weight-light">
+            {{ request.user.employee.first.role }}
           </span>
         </a>
 

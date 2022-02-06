@@ -424,3 +424,4 @@ class UpdateUserProfile(UpdateView):
 @login_required
 def account(request):
     return render(request, 'hospital/account.html',{})
+

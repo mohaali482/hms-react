@@ -19,6 +19,26 @@
 	<body class="img js-fullheight" style="background-image: url({% static 'images/hospital.jpg' %});">
 	<section class="ftco-section">
 		<div class="container">
+
+			{% if form.errors %}
+				<div class="alert alert-danger alert-dismissible">
+					<h5><i class="icon fas fa-ban"></i> Alert!</h5>
+				Your username and password didn't match. Please try again.
+				</div>
+				{% endif %}
+
+				{% if next %}
+					{% if user.is_authenticated %}
+					<p>Your account doesn't have access to this page. To proceed,
+					please login with an account that has access.</p>
+					{% else %}
+					<p>Please login to see this page.</p>
+					{% endif %}
+			{% endif %}
+            
+        
+			  
+		  
 			<div class="row justify-content-center">
 				
 				<img

@@ -92,6 +92,7 @@ class EmployeeData(models.Model):
 
 class Queue(models.Model):
     patient = models.ForeignKey("Patient", verbose_name=_("Patient"), on_delete=models.CASCADE, related_name='patient')
+    doctor = models.ForeignKey("EmployeeData", verbose_name=_("Doctor"), on_delete=models.CASCADE, related_name="doctor")
 
     def __str__(self):
         return self.patient.first_name
