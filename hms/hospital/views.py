@@ -8,8 +8,6 @@ from django import forms
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.template import context
 from .forms import *
 from django.core.exceptions import PermissionDenied
 # Create your views here.
@@ -377,7 +375,6 @@ class ConditionUpdateView(UpdateView):
 
 
 # we are making a class to define who can delete patients and its functionality
-
 @method_decorator(login_required, name = 'dispatch')
 class PatientDeleteView(RoleReceptionMixin, DeleteView):
     model = Patient
@@ -398,8 +395,7 @@ class PatientDeleteView(RoleReceptionMixin, DeleteView):
 
 
 
-# we are defing the registion a doctor form 
-
+# we are defing the registion a patient form 
 @login_required
 def register(request ,response):
     if not role_reception(request):
@@ -423,3 +419,8 @@ class UpdateUserProfile(UpdateView):
     def form_valid(self, form):
         messages.success(self.request, 'Updated User Data Successfully')
         return super().form_valid(form)
+
+
+@login_required
+def account(request):
+    return render(request, 'hospital/account.html',{})

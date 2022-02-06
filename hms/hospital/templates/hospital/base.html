@@ -9,11 +9,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
 
-    <title>{% if doctor %}
-      Doctor
-      {% else %}
-      Reception
-      {% endif %}</title>
+    <title>{{ title }}</title>
     {% load static %}
 
     <!-- Font Awesome Icons -->
@@ -72,10 +68,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!-- Sidebar user panel (optional) -->
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
               <div class="image">
-                <i class="far fa-user"></i>
+                <i class="far fa-2x fa-user img-circle elevation-2"></i>
               </div>
               <div class="info">
-                <a href="#" class="d-block">{{ request.user.get_full_name  }}</a>
+                <a href="{% url 'account' %}" class="d-block">{{ request.user.get_full_name  }}</a>
               </div>
           </div>
 

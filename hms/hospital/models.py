@@ -1,3 +1,4 @@
+from django.forms import TimeField
 from django.utils import timezone
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -64,10 +65,11 @@ class PatientHistory(models.Model):
 #we create schedule form for our employees
 
 class Schedule(models.Model):
-    date = models.DateTimeField(_("Entry date and time"), auto_now=False, auto_now_add=False)
+    from_time = models.TimeField(_("From Time"), auto_now=False, auto_now_add=False)
+    to_time = models.TimeField(_("To Time"), auto_now=False, auto_now_add=False)
 
     def __str__(self) -> str:
-        return str(self.date)
+        return str(self.from_time) + " -> " + str(self.to_time)
 
 
 

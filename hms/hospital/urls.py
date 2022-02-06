@@ -22,5 +22,6 @@ urlpatterns = [
     path('patient-history/<str:id>', views.CreateCondition.as_view(), name='patientHistory'),
     path('old-history/<str:id>', views.old_history, name='old_history'),
     path('history-info/<str:id>', views.history_info, name='history'),
-    path('doctor/', views.doctor_home, name="doctorHome")
+    path('doctor/', views.doctor_home, name="doctorHome"),
+    path('account/', views.account, name="account"),
 ]
