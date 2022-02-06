@@ -1,0 +1,43 @@
+{% extends 'hospital/base.html' %} {% block forms %}
+<div class="container">
+  <div class="card card-primary">
+    <div class="card-header text-light border-bottom-0">Patient History</div>
+    <div>
+      <div class="card-body">
+        <h5>Personal Information</h5>
+        <dl class="row">
+          <dt class="col-md-2">Full Name:</dt>
+          <dd class="col-md-10">{{ request.user.get_full_name }}</dd>
+          <dt class="col-md-2">Role:</dt>
+          <dd class="col-md-10">{{ request.user.employee.first.role }}</dd>
+          <dt class="col-md-2">Phone No.:</dt>
+          <dd class="col-md-10">{{ request.user.employee.first.phone_no }}</dd>
+        </dl>
+        <h5 class="pt-5">Work Schedule</h5>
+        <dl class="row">
+          <dt class="col-md-2">From Time:</dt>
+          <dd class="col-md-10">
+            {{ request.user.employee.first.schedule.from_time }}
+          </dd>
+          <dt class="col-md-2">To Time:</dt>
+          <dd class="col-md-10">
+            {{ request.user.employee.first.schedule.to_time }}
+          </dd>
+        </dl>
+      </div>
+      <div class="card-footer">
+        <button class='btn btn-primary'>
+          <a>
+            Update
+          </a>
+        </button>
+        <button class='btn btn-success float-right'>
+          <a>
+            Request Other Working Time
+          </a>
+        </button>
+    </div>
+    </div>
+  </div>
+</div>
+{% endblock forms %}
