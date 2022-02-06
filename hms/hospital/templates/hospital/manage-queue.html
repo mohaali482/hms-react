@@ -56,7 +56,7 @@
           <th>Last Name</th>
           <th>Phone</th>
           <th>Email</th>
-          <th>Sex</th>
+          <th>Doctor</th>
           <th>Actions</th>
         </tr>
         </thead>
@@ -64,15 +64,15 @@
         {% for patient in queue %}
           <tr>
             <td>{{ forloop.counter  }}</td>
-            <td>{{ patient.first_name }}</td>
-            <td>{% if patient.middle_name  %}{{ patient.middle_name }}{% endif %}</td>
-            <td>{{ patient.last_name }}</td>
-            <td>{{ patient.phone }}</td>
-            <td>{{ patient.email }}</td>
-            <td>{{ patient.sex }}</td>
+            <td>{{ patient.get_patient.first_name }}</td>
+            <td>{% if patient.get_patient.middle_name  %}{{ patient.get_patient.middle_name }}{% endif %}</td>
+            <td>{{ patient.get_patient.last_name }}</td>
+            <td>{{ patient.get_patient.phone }}</td>
+            <td>{{ patient.get_patient.email }}</td>
+            <td>{{ patient.doctor }}</td>
             <td>
               <button class="btn btn-warning">
-                <a class = 'text-light' href="{% url 'dequeue' id=patient.id %}" >
+                <a class = 'text-light' href="{% url 'dequeue' id=patient.get_patient.id %}" >
                   Remove From Queue
                 </a>
               </button>

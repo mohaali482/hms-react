@@ -69,11 +69,13 @@
                   View Patient
                 </a>
               </button>
+              {% if forloop.counter == 1 %}
               <button class="btn btn-success">
                 <a class = 'text-light' href="{% url 'dequeue' id=patient.id %}" >
                   Finish
                 </a>
               </button>
+              {% endif %}
             </td>
           </tr>
         {% endfor %}

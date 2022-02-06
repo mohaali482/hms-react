@@ -65,17 +65,20 @@ def home_hospital(request):
 # we are adding the queue to the reciptonist and its functionalty and requiring login for it
 
 @login_required
-def add_queue(request,id):
+def add_queue(request):
     if not role_reception(request):
         return redirect('home')
+    id = request.POST['patientid']
+    doctorid = request.POST['doctor']
     patient = Patient.objects.get(id = id)
+    doctor = EmployeeData.objects.get(id= doctorid)
     if Queue.objects.filter(patient= patient):
 
         messages.warning(request, "Patient already in queue")
         return redirect('search')
 
 
-    new_queue = Queue(patient=patient)
+    new_queue = Queue(patient=patient, doctor = doctor)
     new_queue.save()
 
     messages.success(request, f"Added {patient.full_name()} to the queue.")
@@ -95,6 +98,7 @@ def search_patient(request):
     context['text'] = 'Add a Patient'
     context['general'] = 'Patient Information'
     context['reception'] = True
+    context['doctors'] = EmployeeData.objects.filter(role='Doctor')
     patients = Patient.objects.all()
     queue = []
     for items in Queue.objects.all():
@@ -118,9 +122,7 @@ def queue_list(request):
 
     context['general'] = 'Patient Information'
     context['reception'] = True
-    queue = []
-    for items in Queue.objects.all():
-        queue.append(items.get_patient())
+    queue = Queue.objects.all()
     context['queue'] = queue
     context['menuactive'] = 'managequeue'
     return render(request,'hospital/manage-queue.html', context)
@@ -170,7 +172,7 @@ def doctor_home(request):
         return redirect('home')
     context = {}
     patients = []
-    for patient in Queue.objects.all():
+    for patient in Queue.objects.filter(doctor=request.user.employee.first()):
         patients.append(patient.patient)
     context['patients'] = patients
     context['doctor'] = True

@@ -18,7 +18,7 @@ class Patient(models.Model):
     phone = models.CharField(_("Phone number"), max_length=15)
     email = models.EmailField(_("Email"), max_length=254, blank=True, null=True)
     sex = models.CharField(_("Sex"), max_length=10)
-    blood_type = models.CharField(_("Blood Type"), max_length=2, blank=True, null=True)
+    blood_type = models.CharField(_("Blood Type"), max_length=3, blank=True, null=True)
 
     def __str__(self) -> str:
         if self.email:
