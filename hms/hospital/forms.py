@@ -6,18 +6,17 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import *
 
 
-# In forms here we created the form we needed for our system 
+#created the needed forms for the system 
 
 
 
-# we made Gender choices and bloodtype a choice fields 
+# created an array to hold  Gender and bloodtype choices  
 GenderChoices = [("",""),("Female","Female"), ("Male","Male") ]
 BloodTypes = [("",""),("A+","A+" ), ("A-", "A-"), ("B-","B-"),("B+", "B+"),("AB+","AB+"), ("AB-","AB-"),("O-","O-"),("O+", "O+")]
 
 
 
-# we our register form for our patient and used the data we got in our models as fields
-
+# patient register form
 class RegisterPatientForm(forms.ModelForm):
     def __init__(self, *args, **kwargs) -> None:
         super(RegisterPatientForm, self).__init__(*args, **kwargs)
@@ -35,7 +34,7 @@ class RegisterPatientForm(forms.ModelForm):
 
 
 
-# we creating a patient condition form from our models and make them fields here
+# register patient condition form  
 
 class RegisterPatientCondition(forms.ModelForm):
     def __init__(self, *args, **kwargs) -> None:
@@ -49,7 +48,7 @@ class RegisterPatientCondition(forms.ModelForm):
 
 
 
-# we are creating a patient info edit form here 
+# edit patient form  
 
 class EditPatient(forms.ModelForm):
     def __init__(self, *args, **kwargs) -> None:
@@ -67,6 +66,9 @@ class EditPatient(forms.ModelForm):
         'phone',
         ]
 
+
+
+# condition update form 
 class ConditionUpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs) -> None:
         super(ConditionUpdateForm, self).__init__(*args, **kwargs)
@@ -94,14 +96,14 @@ class ConditionUpdateForm(forms.ModelForm):
 
 
 
-# we created user register form 
+# created user register form 
 class RegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ["username", "email", "password1", "password2"]
 
 
-# we creating Edit profile form for our user 
+# creating Edit profile form for our user 
 class UpdateProfileForm(forms.ModelForm):
     
     class Meta:
