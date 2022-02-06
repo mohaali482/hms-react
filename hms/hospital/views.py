@@ -113,6 +113,7 @@ def search_patient(request):
 
 def queue_list(request):
     if not role_reception(request):
+        messages.warning(request, "Can't access this page")
         return redirect('home')
 
     context = {}
@@ -133,7 +134,7 @@ def queue_list(request):
 
 @login_required
 def dequeue(request, id):
-    if not role_reception(request):
+    if not role_reception(request) and not role_doctor(request):
         return redirect('home')
 
     patient = Patient.objects.get(id=id)
@@ -208,7 +209,8 @@ def old_history(request, id):
     history = PatientHistory.objects.filter(patient=patient)
     context = {}
     context['patient'] = patient
-    context['condition'] = history
+    context['condition'] = history[::-1]
+    context['today'] = timezone.now()
     context['menuactive'] = 'managepatient'
     context['menuactivech'] = 'registeredpatient'
     context['doctor'] = True
@@ -264,7 +266,8 @@ class RoleDoctorMixin:
             else:
                 raise PermissionDenied
         except:
-            raise PermissionDenied
+            messages.warning(request, "Can't access this page.")
+            return PermissionDenied 
 
 
 
@@ -356,6 +359,19 @@ class PatientUpdateView(RoleReceptionMixin, UpdateView):
         messages.success(self.request, 'Patient Information Updated Successfully')
         return super().form_valid(form)
 
+
+
+
+class ConditionUpdateView(UpdateView):
+    model = Condition
+    template_name = "hospital/edit-patient.html"
+    form_class = ConditionUpdateForm
+    success_url =reverse_lazy('doctorHome')
+    
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Condition Updated Successfully')
+        return super().form_valid(form)
 
 
 

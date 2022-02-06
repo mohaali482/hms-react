@@ -8,28 +8,34 @@
     <div class="card-body pt-0">
 
       <div class="row">
-        <div class="col-7">
-          <h2 class="lead"><b>Full Name: {{ patient.first_name }} {{ patient.middle_name }} {{ patient.last_name }}</b></h2>
-          <ul class="ml-4 mb-0 fa-ul text-muted">
-            <li class="small">Id: {{ patient.id }}</li>
-            <li class="small">Phone #: {{ patient.phone }}</li>
-            <li class="small">Birth Date: {{ patient.b_date }}</li>
-            <li class="small">Email: {{ patient.email }}</li>
-            <li class="small">Gender: {{ patient.sex }}</li>
-            <li class="small">Blood Type: {{ patient.blood_type }}</li>
-          </ul>
-        </div>
+        <dl class="row">
+          <dt class="col-md-2">Full Name:</dt>
+          <dd class="col-md-10">{{ patient.full_name }}</dd>
+          <dt class="col-md-2">Id:</dt>
+          <dd class="col-md-10"> {{ patient.id }}</dd>
+          <dt class="col-md-2">Phone #:</dt>
+          <dd class="col-md-10">{{ patient.phone }}</dd>
+          <dt class="col-md-2">Birth Date:</dt>
+          <dd class="col-md-10">{{ patient.b_date }}</dd>
+          <dt class="col-md-2">Email:</dt>
+          <dd class="col-md-10">{{ patient.email }}</dd>
+          <dt class="col-md-2">Gender:</dt>
+          <dd class="col-md-10">{{ patient.sex }}</dd>
+          <dt class="col-md-2">Blood Type:</dt>
+          <dd class="col-md-10">{{ patient.blood_type }}</dd>
+        </dl>
       </div>
 
-      <div class="row mt-5 pb-5">
-        <div class="col-7">
-          <h2 class="lead"><b>Date: {{ history.conditions.date }}</b></h2>
-          <ul class="ml-4 mb-0 fa-ul">
-            <li >Condition: {{ history.conditions.condition }}</li>
-            <li >Symptomps: {{ history.conditions.symptomps }}</li>
-            <li >Prescriptions: {{ history.conditions.prescription }}</li>
-          </ul>
-        </div>
+      <div class="row mt-5 pb-5 d-block">
+        <h3 class='pb-3'>Conditions</h3>
+        <dl class="row">
+          <dt class="col-md-6">Condition:</dt>
+          <dd class="col-md-6">{{ history.conditions.condition }}</dd>
+          <dt class="col-md-6">Symptomps:</dt>
+          <dd class="col-md-6"> {{ history.conditions.symptomps }}</dd>
+          <dt class="col-md-6">Prescriptions:</dt>
+          <dd class="col-md-6"> {{ history.conditions.prescription }}</dd>
+        </dl>
       </div>
 
     </div>

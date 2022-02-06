@@ -1,5 +1,4 @@
 {% extends 'hospital/base.html' %}
-{% block forms %}
 {% block toast_script %}
 {% if messages %}
      {% for message in messages %}
@@ -9,10 +8,10 @@
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
-            timer: 3000
+            timer: 100000
           });
           Toast.fire({
-            icon: 'danger',
+            icon: 'error',
             title: "{{ message|safe }}"
           })
       </script>
@@ -30,17 +29,11 @@
           })
     </script>
       {% endif %}
-         <div class="text-center alert alert-">
-             
-         </div>
-         
      {% endfor %}
  {% endif %}
-
-
  {% endblock toast_script %}  
 
-
+{% block forms %}
 <div class="card card-primary">
     <div class="card-header">
       <h3 class="card-title">{{ general }}</h3>
@@ -74,6 +67,11 @@
               <button class="btn btn-primary">
                 <a class = 'text-light' href="{% url 'patientHistory' id=patient.id %}" >
                   View Patient
+                </a>
+              </button>
+              <button class="btn btn-success">
+                <a class = 'text-light' href="{% url 'dequeue' id=patient.id %}" >
+                  Finish
                 </a>
               </button>
             </td>
