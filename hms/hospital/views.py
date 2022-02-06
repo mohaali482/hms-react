@@ -429,7 +429,7 @@ def account(request):
 
 
 
-def register(response):
+def registeruser(response):
     if response.method == "POST":
         form = RegisterForm(response.POST) 
         if form.is_valid():

@@ -9,7 +9,7 @@ from . import views
 
 # we are linking our views to our urls here
 urlpatterns = [
-    path('register/', views.register, name='register'),
+    path('registeruser/', views.registeruser, name='registeruser'),
     path('home/',views.home_hospital,name='home-hospital'),
     path('register/', views.Register.as_view(), name='register'),
     path('search',views.search_patient, name='search'),
